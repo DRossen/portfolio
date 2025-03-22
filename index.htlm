@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+				<title>Simple Layout</title>
+				<link rel="stylesheet" href="styles.css">
+</head>
+	<body>
+
+		<header>
+			<h1>Header</h1>
+		</header>
+
+		<main>
+			<div class="content">
+				<div class="text">T - Some text goes here</div>
+				<div class="image">
+					<img src="your-image.jpg" alt="P - Placeholder Image">
+            </div>
+			</div>
+		</main>
+
+		<footer>
+			<p>Footer</p>
+		</footer>
+
+	</body>
+</html>
