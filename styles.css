@@ -3,56 +3,37 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    text-align: center;
-}
-
-/* Header */
-header {
-    background-color: #333;
-    color: white;
-    padding: 20px;
-    font-size: 24px;
-}
-
-/* Main Content Layout */
-main {
     display: flex;
     justify-content: center;
-    padding: 20px;
-}
-
-.content {
-    display: flex;
-    width: 60%;
-    max-width: 800px;
-    border: 2px solid #000;
-    padding: 20px;
-}
-
-/* Text Section */
-.text {
-    width: 50%;
-    padding: 10px;
-    font-size: 18px;
-}
-
-/* Image Section */
-.image {
-    width: 50%;
-    display: flex;
     align-items: center;
-    justify-content: center;
+    height: 100vh; /* Full viewport height */
+    text-align: center;
+    background-color: #f0f0f0; /* Light background */
 }
 
-    .image img {
-        max-width: 100%;
-        height: auto;
-    }
+/* Centered Box Container */
+.centered-box {
+    display: flex;
+    align-items: center; /* Vertically center */
+    justify-content: space-between;
+    width: 60%;
+    height: 200px; /* Set height for the box */
+    background-color: white;
+    border: 2px solid #000; /* Border around the box */
+    padding: 20px;
+}
 
-/* Footer */
-footer {
-    background-color: #333;
-    color: white;
-    padding: 15px;
-    margin-top: 20px;
+/* Left side text */
+.text {
+    flex: 1; /* Takes up the left side of the box */
+    font-size: 18px;
+    padding: 10px;
+    background-color: #e0e0e0; /* Light grey background for text */
+}
+
+/* Right side red box (image placeholder) */
+.image {
+    width: 150px; /* Set fixed width */
+    height: 100%; /* Full height of the container */
+    background-color: red; /* Red background as image placeholder */
 }
