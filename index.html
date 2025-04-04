@@ -18,17 +18,9 @@
   <meta property="og:url" content="https://danielrosentest.carrd.co" />
   <meta property="twitter:card" content="summary_large_image" />
   <link rel="canonical" href="https://danielrosentest.carrd.co" />
-  <!-- Highlight.js CSS (Dracula Theme) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/dracula.min.css" />
-  
-  <!-- Highlight.js JS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-  
-  <!-- Initialize syntax highlighting after page load -->
-  <script>
-    window.onload = function() {
-      hljs.highlightAll();
-    };
+  <script>hljs.highlightAll();</script>
   </script>
   <style>
     /* vietnamese */
@@ -3124,15 +3116,18 @@
                       but needs to avoid hitting its allies. How can we find a good position to throw it?</span><span
                       class="p">The solution is simple: we combine enemy(-) and friendly influence(+) within a search
                       radius and retrieve the cell with the lowest influence value. This cell&#39;s position describes a
-                      location that’s most impacted by enemy presence at the given time.</span></p>
-                      
-                      <pre><code class="language-cpp">
-                        int size = 5;
-                        for (int i = 0; i < size; i++) {
-                          // Test
-                        }
-                      </code></pre>
-
+                      location that’s most impacted by enemy presence at the given time.</span>
+                    </p>
+                    <div>
+                      <div>
+                          <pre><code class="language=c++">
+int size = 5;
+for (int i = 0; i < size; i++) {
+  // Test
+}
+                          code></pre>
+                        </div>
+                    </div>
                 </div>
                 <div>
                   <div id="image06" class="image" data-position="center"><a
