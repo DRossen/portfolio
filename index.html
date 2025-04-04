@@ -11,17 +11,16 @@
   <meta property="og:title" content="TestHemsida" />
   <meta property="og:type" content="website" />
   <meta property="og:description" content="TestHemsida" />
-  <meta property="og:image" content="https://danielrosentest.carrd.co/assets/images/card.jpg?v=67b1ee73" />
+  <meta property="og:image" content="https://danielrosentest.carrd.co/assets/images/card.jpg?v=b54ada4e" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1280" />
   <meta property="og:image:height" content="800" />
   <meta property="og:url" content="https://danielrosentest.carrd.co" />
   <meta property="twitter:card" content="summary_large_image" />
   <link rel="canonical" href="https://danielrosentest.carrd.co" />
- <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
- <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
-  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
   <style>
     /* vietnamese */
     @font-face {
@@ -3071,7 +3070,7 @@
                 </div>
                 <div>
                   <div id="image01" class="image" data-position="center"><span class="frame"><img
-                        src="https://danielrosentest.carrd.co/assets/images/image01.jpg?v=67b1ee73" alt="" /></span>
+                        src="https://danielrosentest.carrd.co/assets/images/image01.jpg?v=b54ada4e" alt="" /></span>
                   </div>
                 </div>
               </div>
@@ -3142,7 +3141,7 @@
                   <div id="image04" class="image" data-position="center"><a href="#influencemaps"
                       class="frame deferred"><img
                         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjAiIHk9IjAiIHZpZXdCb3g9IjAgMCA0ODAgMjcwIiB3aWR0aD0iNDgwIiBoZWlnaHQ9IjI3MCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI%2BPHJlY3QgZmlsbD0idHJhbnNwYXJlbnQiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiLz48L3N2Zz4%3D"
-                        data-src="assets/images/image04.gif?v=67b1ee73" alt="" /></a></div>
+                        data-src="assets/images/image04.gif?v=b54ada4e" alt="" /></a></div>
                 </div>
               </div>
             </div>
@@ -3169,7 +3168,7 @@
                   <div id="image02" class="image" data-position="center"><a
                       href="https://drossen.github.io/webbsite/assets/FlockingBods.gif" class="frame deferred"><img
                         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjAiIHk9IjAiIHZpZXdCb3g9IjAgMCA4NzYgODc4IiB3aWR0aD0iODc2IiBoZWlnaHQ9Ijg3OCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI%2BPHJlY3QgZmlsbD0iIzA0MDQwNCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPjwvc3ZnPg%3D%3D"
-                        data-src="assets/images/image02.gif?v=67b1ee73" alt="" /></a></div>
+                        data-src="assets/images/image02.gif?v=b54ada4e" alt="" /></a></div>
                 </div>
               </div>
             </div>
@@ -3194,7 +3193,7 @@
                   <div id="image03" class="image" data-position="center"><a
                       href="https://drossen.github.io/webbsite/assets/FlockingBods.gif" class="frame deferred"><img
                         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjAiIHk9IjAiIHZpZXdCb3g9IjAgMCA2MDAgMzM4IiB3aWR0aD0iNjAwIiBoZWlnaHQ9IjMzOCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI%2BPHJlY3QgZmlsbD0idHJhbnNwYXJlbnQiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiLz48L3N2Zz4%3D"
-                        data-src="assets/images/image03.gif?v=67b1ee73" alt="" /></a></div>
+                        data-src="assets/images/image03.gif?v=b54ada4e" alt="" /></a></div>
                 </div>
               </div>
             </div>
@@ -3224,23 +3223,21 @@
                       class="p">The solution is simple: we combine enemy(-) and friendly influence(+) within a search
                       radius and retrieve the cell with the lowest influence value. This cell&#39;s position describes a
                       location that’s most impacted by enemy presence at the given time.</span></p>
-                      <pre>
-                        <code class="language-cpp">
-                        #include <iostream>
-                         
-                        int main() {
-                            int test = 5;
-                            std::string test_sring = "Hello";
-                            return 0;
+                      
+                      <pre><code class="language=c++">
+                        int size = 5;
+                        for (int i = 0; i < size; i++) {
+                    
+                          // Test
                         }
-                        </code>
-                      </pre>
+                      </code></pre>
+
                 </div>
                 <div>
                   <div id="image06" class="image" data-position="center"><a
                       href="https://drossen.github.io/webbsite/assets/FlockingBods.gif" class="frame deferred"><img
                         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjAiIHk9IjAiIHZpZXdCb3g9IjAgMCAxMjUyIDEwNzkiIHdpZHRoPSIxMjUyIiBoZWlnaHQ9IjEwNzkiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxyZWN0IGZpbGw9IiM2YTY5ODEiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiLz48L3N2Zz4%3D"
-                        data-src="assets/images/image06.jpg?v=67b1ee73" alt="" /></a></div>
+                        data-src="assets/images/image06.jpg?v=b54ada4e" alt="" /></a></div>
                 </div>
               </div>
             </div>
