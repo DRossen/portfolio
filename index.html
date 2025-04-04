@@ -18,9 +18,18 @@
   <meta property="og:url" content="https://danielrosentest.carrd.co" />
   <meta property="twitter:card" content="summary_large_image" />
   <link rel="canonical" href="https://danielrosentest.carrd.co" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" />
+  <!-- Highlight.js CSS (Dracula Theme) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/dracula.min.css" />
+  
+  <!-- Highlight.js JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-  <script>hljs.highlightAll();</script>
+  
+  <!-- Initialize syntax highlighting after page load -->
+  <script>
+    window.onload = function() {
+      hljs.highlightAll();
+    };
+  </script>
   <style>
     /* vietnamese */
     @font-face {
@@ -3224,13 +3233,13 @@
                       radius and retrieve the cell with the lowest influence value. This cell&#39;s position describes a
                       location that’s most impacted by enemy presence at the given time.</span></p>
                       
-                      <pre><code class="language=c++">
-                        int size = 5;
-                        for (int i = 0; i < size; i++) {
-                    
-                          // Test
-                        }
-                      </code></pre>
+  <pre><code class="language-cpp">
+    int size = 5;
+    for (int i = 0; i < size; i++) {
+
+      // Test
+    }
+  </code></pre>
 
                 </div>
                 <div>
