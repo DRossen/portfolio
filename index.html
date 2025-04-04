@@ -179,14 +179,29 @@
     h6,
     p,
     blockquote,
-    pre,
+    pre code {
+      color: inherit; /* Ensure the text color inside <code> is inherited from the parent */
+    }
+    div pre, div code {
+      background: none;  /* Remove background from code block */
+      color: inherit;    /* Inherit text color */
+    }
+    pre {
+      padding: 0;
+      margin: 0;
+      white-space: pre-wrap;  /* Makes sure long lines wrap properly */
+    }
+    code {
+      padding: 0;
+      margin: 0;
+      display: block;
+    }
     a,
     abbr,
     acronym,
     address,
     big,
     cite,
-    code,
     del,
     dfn,
     em,
@@ -3233,13 +3248,12 @@
                       radius and retrieve the cell with the lowest influence value. This cell&#39;s position describes a
                       location that’s most impacted by enemy presence at the given time.</span></p>
                       
-  <pre><code class="language-cpp">
-    int size = 5;
-    for (int i = 0; i < size; i++) {
-
-      // Test
-    }
-  </code></pre>
+                      <pre><code class="language-cpp">
+                        int size = 5;
+                        for (int i = 0; i < size; i++) {
+                          // Test
+                        }
+                      </code></pre>
 
                 </div>
                 <div>
