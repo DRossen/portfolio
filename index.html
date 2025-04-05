@@ -28,6 +28,33 @@
   <!-- Highlight.js for syntax highlighting -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
   <script>hljs.highlightAll();</script>
+
+
+  <script>
+    // Define your code snippets in variables
+    const gridCode = `
+int size = 5;
+for (int i = 0; i < size; i++) {
+  // Test
+}
+    `;
+
+    // Function to inject code into the page and apply syntax highlighting
+    function injectCode(code, elementId) {
+      // Inject the code into the specified element
+      document.getElementById(elementId).textContent = code;
+
+      // After the code is injected, apply syntax highlighting using Highlight.js
+      hljs.highlightElement(document.getElementById(elementId));
+    }
+
+    // Is being called when the page loads.
+    // Which injects the code snippets into placed where we added them (by id, "grid-code" for example )
+    window.onload = function() {
+      injectCode(gridCode, "grid-code");
+    };
+  </script>
+
 </head>
 
 <body><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -277,13 +304,8 @@
                     </p>
                     <div>
                       <div>
-                          <pre><code class="language-cpp">
-int size = 5;
-for (int i = 0; i < size; i++) {
-  // Test
-}
-                          <code></pre>
-                        </div>
+                        <pre><code class="language-cpp" id="grid-code"></code></pre>
+                      </div>
                     </div>
                 </div>
                 <div>
