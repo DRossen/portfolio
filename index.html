@@ -36,9 +36,8 @@ for (double i = 0; i < size_double; i++) {
 
     // Function to inject code into the page and apply syntax highlighting
     function injectCode(code, elementId) {
-      // Inject the code into the specified element
-      document.getElementById(elementId).textContent = code;
-
+      const element = document.getElementById(elementId);
+      element.innerHTML = code;  // Inject as HTML (not plain text)
       // Re-apply syntax highlighting after the content is injected
       hljs.highlightElement(element); // highlight the specific element
     }
@@ -54,7 +53,7 @@ for (double i = 0; i < size_double; i++) {
   <!-- Highlight.js for syntax highlighting -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
-  <script src="scripts.js?v=1.0.3"></script>
+  <script src="scripts.js?v=1.0.31"></script>
 
 </head>
 
