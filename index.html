@@ -121,7 +121,7 @@ void InfluenceMap::FloodFillInfluence(const Vector2i& aOriginCoord, const Influe
 
     // Is being called when the page loads.
     // Which injects the code snippets into placed where we added them (by id, "grid-code" for example )
-    window.onload = function() {
+    window.onload = function () {
       injectCode(interestTemplate, "interest-template");
       injectCode(workmap, "work-map");
       injectCode(floodfill, "flood-fill");
@@ -356,17 +356,8 @@ void InfluenceMap::FloodFillInfluence(const Vector2i& aOriginCoord, const Influe
                 <h1 id="text21" class="style4">Influence Maps</h1>
                 <p id="text32"><em>Showcase behavior using only influence data</em></p>
                 <div id="video05" class="video">
-                  <video
-                    src="assets/Showcase.mp4"
-                    poster="" 
-                    title="InfluenceMaps" 
-                    preload="auto" 
-                    playsinline
-                    webkit-playsinline controls                    
-                    autoplay
-                    muted
-                    loop
-                    ></video>
+                  <video src="assets/Showcase.mp4" poster="" title="InfluenceMaps" preload="auto" playsinline
+                    webkit-playsinline controls autoplay muted loop></video>
                 </div>
                 <p id="text22" class="style2"><span class="p">Green unit (Fleeing) constantly tries to move to a
                     position under least amount of enemy influence (Red units).<br /> Red Units (Enemies) are coded
@@ -405,7 +396,56 @@ void InfluenceMap::FloodFillInfluence(const Vector2i& aOriginCoord, const Influe
                       valid.</span><span class="p">To do so we compare each cell&#39;s center position against the
                       Navmesh and mark cells outside of it as invalid. Also when both retrieving and applying influence
                       we use a flood fill algorithm (BFS) to adapt it to the level geometry.</span></p>
-                  <pre><code class="language-cpp" id="flood-fill"></code></pre>
+                  <pre><code class="language-cpp"> class InfluenceMap
+void InfluenceMap::FloodFillInfluence(const Vector2i& aOriginCoord, const InfluenceData& aInfluenceData, float aAmount)
+{
+	InterestTemplate& interestTemplate = myManager->GetImprintTemplate(aInfluenceData);
+	FalloffFunction curveFunc = GetFalloffFunction(aInfluenceData.type);
+	int radius = interestTemplate.dimensions / 2;
+	int maxIterations = radius + 1;
+	std::set<int> visited;
+	std::queue<std::tuple<Vector2i, Vector2i, int>> bfsQueue;
+	Vector2i boundsMin = { std::max(myBoundsMin.x, aOriginCoord.x - radius), std::max(myBoundsMin.y, aOriginCoord.y - radius) };
+	Vector2i boundsMax = { std::min(myBoundsMax.x, aOriginCoord.x + radius), std::min(myBoundsMax.y, aOriginCoord.y + radius) };
+	bfsQueue.push({ aOriginCoord, interestTemplate.centerCell, 1 });
+	int worldStartIndex = aOriginCoord.y * myGridSize.x + aOriginCoord.x;
+	int localStartIndex = interestTemplate.centerCell.y * interestTemplate.dimensions + interestTemplate.centerCell.x;
+	if (worldStartIndex >= 0 && worldStartIndex < myValues.size())
+	{
+		myValues[worldStartIndex] += interestTemplate.values[localStartIndex] * aAmount;
+		visited.insert(worldStartIndex);
+	}
+	float bfsFallof = 1.0f;
+	int distance = 1;
+	int iteration = 1;
+	while (!bfsQueue.empty())
+	{
+		Vector2i nextLocalCoord, nextTemplateCoord;
+		Vector2i localCoord, templateCoord;
+		std::tie(localCoord, templateCoord, distance) = bfsQueue.front();
+		bfsQueue.pop();
+		bfsFallof = curveFunc(static_cast<float>(distance), static_cast<float>(maxIterations));
+		for (const auto& direction : directions)
+		{
+			nextLocalCoord = localCoord + direction;
+			nextTemplateCoord = templateCoord + direction;
+			if (nextLocalCoord.x < boundsMin.x || nextLocalCoord.x > boundsMax.x ||
+				nextLocalCoord.y < boundsMin.y || nextLocalCoord.y > boundsMax.y) {
+				continue;
+			}
+			int heatmapIndex = nextLocalCoord.y * myGridSize.x + nextLocalCoord.x;
+			int templateIndex = nextTemplateCoord.y * interestTemplate.dimensions + nextTemplateCoord.x;
+			if (!myValidCells->at(heatmapIndex)) continue;
+			if (visited.find(heatmapIndex) == visited.end())
+			{
+				myValues[heatmapIndex] += (interestTemplate.values[templateIndex] * bfsFallof) * aAmount;
+				bfsQueue.push({ nextLocalCoord, nextTemplateCoord, distance + 1 });
+				visited.insert(heatmapIndex);
+			}
+		}
+	}
+}
+                  </code></pre>
                   <hr id="divider01">
                   <h2 id="text29" class="style1">Initialization process</h2>
                   <p id="text31" class="style2"><span class="p">Units register them self into the system, specifying
@@ -420,7 +460,29 @@ void InfluenceMap::FloodFillInfluence(const Vector2i& aOriginCoord, const Influe
                       &quot;InterestTemplates&quot; during setup which basically are smaller grids holding the magnitude
                       of the influence values for each cell of the specified radius and type. A small cost of memory but
                       quite a big gain to runtime performance.</span></p>
-                  <pre><code class="language-cpp" id="interest-template"></code></pre>
+                  <pre><code class="language-cpp"> class InfluenceManager
+void InfluenceManager::InitTemplate(const int aSize, FalloffFunction aFallofCurve, InterestTemplate& aTemplate)
+{
+  int dimension = (aSize * 2);
+  dimension = dimension % 2 != 0 ? dimension : dimension + 1;
+  aTemplate.dimensions = dimension;
+  aTemplate.values.resize(dimension * dimension);
+  aTemplate.centerCell = { dimension / 2, dimension / 2 };
+  int index = 0;
+  for (int row = 0; row < dimension; row++)
+  {
+    for (int col = 0; col < dimension; col++)
+    {
+      int coordDistance = (Vector2i(col, row) - aTemplate.centerCell).LengthSqr();
+      float distance = sqrt(static_cast<float>(coordDistance)) * myCellSize;
+      float interest = aFallofCurve(distance, static_cast<float>(aSize));
+      aTemplate.values[index] = interest;
+      index++;
+    }
+  }
+}
+                  </code>
+                </pre>
                   <hr id="divider02">
                   <h2 id="text23" class="style1">Retrieving information</h2>
                   <div id="image08" class="style3 image" data-position="center"><a
@@ -433,7 +495,12 @@ void InfluenceMap::FloodFillInfluence(const Vector2i& aOriginCoord, const Influe
                       Type, Team and magnitude / strength.</span><span class="p">This is what allows us to combine
                       different types of data and blend it together using different basic math operations such as
                       &quot;Add, Subtract, Multiply or even Invert.</span></p>
-                      <pre><code class="language-cpp" id="work-map"></code></pre>
+                  <pre><code class="language-cpp"> class Workmap
+Workmap* workmap = influenceManager->GetWorkmap(scanCenterPosition, scanRadius);
+workmap->Add(Team::Player, InfluenceType::Proximity, -1.0);
+workmap->ExcludeUserInfluence(user, InfluenceType::Proximity);
+workmap->Add(Team::Enemy, InfluenceType::Proximity, 2.0);
+                  </code></pre>
                   <h2 id="text38" class="style1">Examples of usage</h2>
                   <p id="text39" class="style2"><span class="p">The dynamic setup of the system allows both dumb and
                       smart AI&#39;s to accomplish their goals by assigning weighted values when retrieving influence
@@ -452,7 +519,7 @@ void InfluenceMap::FloodFillInfluence(const Vector2i& aOriginCoord, const Influe
                       maps within it to avoid cells far outside the map.<br /> Add a scheduler to spread out repainting
                       of influence over multiple frames.<br /> Bread-crumbing influence that stays in cells and decay
                       over time.</span></p>
-                </div><span></span>
+                </div>
               </div>
             </div>
           </div>
