@@ -28,10 +28,11 @@
   <script>
     // Define your code snippets in variables
     const gridCode = `
-double size_double = 5;
-for (double i = 0; i < size_double; i++) {
-  // Test to Change code snippet
-}
+Workmap* workmap = heatmapManager->GetWorkmap(posToDefend, gridRadius);
+workmap->Add(AI::Team::Player, AI::HeatType::Location, -1.0);
+workmap->ExcludeUserInfluence(user, AI::HeatType::Location);
+workmap->Add(AI::Team::Enemy, AI::HeatType::Location, 2.0);
+workmap->GetPositionByHighestValue(*position);
     `;
 
     // Function to inject code into the page and apply syntax highlighting
