@@ -305,7 +305,14 @@ workmap->GetPositionByHighestValue(*position);
                     </p>
                     <div>
                       <div>
-                        <pre><code class="language-cpp" id="grid-code"></code></pre>
+                        <pre><code class="language-cpp">
+                          <span class="hljs-title class_">Workmap</span>* workmap = heatmapManager->GetWorkmap(posToDefend, gridRadius);
+                          workmap->Add(AI::<span class="hljs-enum">Team::Player</span>, AI::<span class="hljs-enum">HeatType::Location</span>, -1.0);
+                          workmap->ExcludeUserInfluence(user, AI::<span class="hljs-enum">HeatType::Location</span>);
+                          workmap->Add(AI::Team::Enemy, AI::<span class="hljs-enum">HeatType::Location</span>, 2.0);
+                          workmap->GetPositionByHighestValue(*position);
+
+                        </code></pre>
                       </div>
                     </div>
                 </div>
