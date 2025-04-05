@@ -139,9 +139,16 @@
       font: inherit;
       vertical-align: baseline;
     }
+    pre code {
+        display: block;
+        border: 1px solid #262626;
+        border-radius: 6px;
+        padding: 1rem;
+        background-color: #0F0D0D;
+      }
     code {
-      background-color: #0F0D0D;
-      border-color: #262626;
+      font-size: 0.85rem;
+      line-height: 1.4;
     }
     section {
       display: block;
