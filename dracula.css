@@ -11,6 +11,9 @@
  */
 
 .hljs {
+  border: 1px solid #444;
+  border-radius: 6px;
+  font-size: 0.55rem;
   display: block;
   overflow-x: auto;
   padding: 0.5em;
