@@ -25,15 +25,13 @@
   <!-- Dracula theme for syntax highlighting -->
   <link rel="stylesheet" href="dracula.css" />
 
-  <!-- Highlight.js for syntax highlighting -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-  <script>hljs.highlightAll();</script>
-
-
   <script>
     // Define your code snippets in variables
     const gridCode = `
-    std::cout << "Oh I changed the snippet to this now!"
+double size_double = 5;
+for (double i = 0; i < size_double; i++) {
+  // Test to Change code snippet
+}
     `;
 
     // Function to inject code into the page and apply syntax highlighting
@@ -51,6 +49,11 @@
       injectCode(gridCode, "grid-code");
     };
   </script>
+
+  
+  <!-- Highlight.js for syntax highlighting -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
 
 </head>
 
