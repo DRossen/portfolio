@@ -2,11 +2,22 @@
 <html lang="en">
 
 <head>
-  <title>Daniel Rosen Portfolio</title>
+  <title>Lightweight</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="color-scheme" content="light only" />
   <meta name="description" content="TestHemsida" />
+  <meta property="og:site_name" content="Lightweight" />
+  <meta property="og:title" content="Lightweight" />
+  <meta property="og:type" content="website" />
+  <meta property="og:description" content="TestHemsida" />
+  <meta property="og:image" content="https://danieltestlight.carrd.co/assets/images/card.jpg?v=1ab222bf" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1280" />
+  <meta property="og:image:height" content="800" />
+  <meta property="og:url" content="https://danieltestlight.carrd.co" />
+  <meta property="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://danieltestlight.carrd.co" />
   <style>
     /* vietnamese */
     @font-face {
@@ -1161,7 +1172,7 @@
       margin: 0 auto 0 auto;
       width: 48rem;
       background-color: #141414;
-      border-color: #000000;
+      border-color: #292929;
       border-style: solid;
       border-width: 1px;
     }
@@ -2093,8 +2104,63 @@
       display: none;
     }
 
-    #icons01 {
+    #icons02 {
       justify-content: flex-start;
+      font-size: 2em;
+      gap: 0.25rem;
+    }
+
+    #icons02 li a {
+      border-radius: 3rem;
+      height: 1em;
+      width: 1em;
+      transition: transform 0.375s ease, color 0.375s ease, background-color 0.375s ease, border-color 0.375s ease;
+    }
+
+    #icons02 li a svg {
+      height: 100%;
+      width: 100%;
+      transition: fill 0.375s ease;
+    }
+
+    #icons02 a svg {
+      fill: #C7CFD6;
+    }
+
+    #icons02 a:hover svg {
+      fill: #FFFFFF !important;
+    }
+
+    #icons02 li a+svg {
+      transition: transform 0.375s ease, fill 0.375s ease, stroke 0.375s ease;
+    }
+
+    #icons02 li a:hover {
+      transform: scale(1.1475);
+    }
+
+    #icons02 li a:hover+svg {
+      transform: scale(1.1475);
+    }
+
+    #icons02 .n01 svg {
+      fill: #C2A646;
+    }
+
+    #icons02 .n02 svg {
+      fill: #5EA7DB;
+    }
+
+    #icons02 .n03 svg {
+      fill: #E0E0E0;
+    }
+
+    #icons02 .n04 svg {
+      fill: #ABD186;
+    }
+
+    #icons01 {
+      justify-content: center;
       font-size: 2em;
       gap: 0.25rem;
     }
@@ -2194,9 +2260,6 @@
       width: 8rem;
       height: 10rem;
       border-radius: 100%;
-      border-color: #8A8A8A;
-      border-style: solid;
-      border-width: 3px;
       transition: none;
     }
 
@@ -2211,29 +2274,28 @@
       transition: none;
     }
 
-    .image.style1 {
-      text-align: center;
+    #image02 {
+      text-align: right;
     }
 
-    .image.style1 .frame {
-      max-width: 100%;
-      width: 438px;
+    #image02 .frame {
+      width: 21rem;
+      height: 18rem;
       border-color: #1C1C1C;
       border-style: solid;
       border-width: 2px;
-      transition: transform 0.5s ease, z-index 0.5s ease;
+      transition: none;
     }
 
-    .image.style1 img {
+    #image02 img {
       height: 100% !important;
       object-fit: cover;
       object-position: center;
       width: 100% !important;
     }
 
-    .image.style1 .frame:hover {
-      transform: scale(1.0425);
-      z-index: 1;
+    #image02 .frame img {
+      transition: none;
     }
 
     .image.style4 {
@@ -2241,12 +2303,12 @@
     }
 
     .image.style4 .frame {
-      width: 25rem;
-      height: 15rem;
+      width: 35rem;
+      height: 19rem;
       border-color: #1C1C1C;
       border-style: solid;
       border-width: 2px;
-      transition: transform 0.5s ease, z-index 0.5s ease;
+      transition: none;
     }
 
     .image.style4 img {
@@ -2256,9 +2318,8 @@
       width: 100% !important;
     }
 
-    .image.style4 .frame:hover {
-      transform: scale(1.0425);
-      z-index: 1;
+    .image.style4 .frame img {
+      transition: none;
     }
 
     #image05 {
@@ -2314,6 +2375,94 @@
     }
 
     .image.style3 .frame img {
+      transition: none;
+    }
+
+    #image13 {
+      text-align: left;
+    }
+
+    #image13 .frame {
+      width: 22.125rem;
+      height: 12rem;
+      border-color: #1C1C1C;
+      border-style: solid;
+      border-width: 2px;
+      transition: none;
+    }
+
+    #image13 img {
+      height: 100% !important;
+      object-fit: cover;
+      object-position: center;
+      width: 100% !important;
+    }
+
+    #image13 .frame img {
+      transition: none;
+    }
+
+    #image12 {
+      text-align: left;
+    }
+
+    #image12:not(:first-child) {
+      margin-top: 0.75rem !important;
+    }
+
+    #image12:not(:last-child) {
+      margin-bottom: 0.75rem !important;
+    }
+
+    #image12 .frame {
+      width: 18rem;
+      height: 18rem;
+      border-color: #1C1C1C;
+      border-style: solid;
+      border-width: 2px;
+      transition: none;
+    }
+
+    #image12 img {
+      height: 100% !important;
+      object-fit: cover;
+      object-position: center;
+      width: 100% !important;
+    }
+
+    #image12 .frame img {
+      transition: none;
+    }
+
+    #image11 {
+      text-align: left;
+    }
+
+    #image11:not(:first-child) {
+      margin-top: 0.75rem !important;
+    }
+
+    #image11:not(:last-child) {
+      margin-bottom: 0.75rem !important;
+    }
+
+    #image11 .frame {
+      width: 18rem;
+      height: 18rem;
+      border-color: #1C1C1C;
+      border-style: solid;
+      border-width: 2px;
+      transition: none;
+    }
+
+    #image11 img {
+      height: 100% !important;
+      object-fit: cover;
+      object-position: center;
+      width: 100% !important;
+    }
+
+    #image11 .frame img {
       transition: none;
     }
 
@@ -2414,62 +2563,6 @@
       padding-top: 56.25%;
     }
 
-    #video05 {
-      text-align: center;
-    }
-
-    #video05 video {
-      border-radius: 0rem;
-      width: 44.625rem;
-    }
-
-    #video05 .frame {
-      border-radius: 0rem;
-      width: 44.625rem;
-    }
-
-    #video06 {
-      text-align: center;
-    }
-
-    #video06 video {
-      border-radius: 0rem;
-      width: 39.875rem;
-    }
-
-    #video06 .frame {
-      border-radius: 0rem;
-      width: 39.875rem;
-    }
-
-    #video01 {
-      text-align: center;
-    }
-
-    #video01 video {
-      border-radius: 0rem;
-      width: 39.875rem;
-    }
-
-    #video01 .frame {
-      border-radius: 0rem;
-      width: 39.875rem;
-    }
-
-    #video03 {
-      text-align: left;
-    }
-
-    #video03 video {
-      border-radius: 0rem;
-      width: 18rem;
-    }
-
-    #video03 .frame {
-      border-radius: 0rem;
-      width: 18rem;
-    }
-
     hr {
       align-items: center;
       border: 0;
@@ -2493,55 +2586,6 @@
     }
 
     #divider08:before {
-      width: 100%;
-      background-color: #D6D6D6;
-      height: 1px;
-      border-radius: 0px;
-    }
-
-    #divider03:before {
-      width: 100%;
-      background-color: #D6D6D6;
-      height: 1px;
-      border-radius: 0px;
-    }
-
-    #divider04:before {
-      width: 100%;
-      background-color: #D6D6D6;
-      height: 1px;
-      border-radius: 0px;
-    }
-
-    #divider09:before {
-      width: 100%;
-      background-color: #D6D6D6;
-      height: 1px;
-      border-radius: 0px;
-    }
-
-    #divider10:before {
-      width: 100%;
-      background-color: #D6D6D6;
-      height: 1px;
-      border-radius: 0px;
-    }
-
-    #divider01:before {
-      width: 100%;
-      background-color: #D6D6D6;
-      height: 1px;
-      border-radius: 0px;
-    }
-
-    #divider02:before {
-      width: 100%;
-      background-color: #D6D6D6;
-      height: 1px;
-      border-radius: 0px;
-    }
-
-    #divider11:before {
       width: 100%;
       background-color: #D6D6D6;
       height: 1px;
@@ -2643,8 +2687,8 @@
       padding-top: 0.15625rem;
       margin: 1px;
       text-align: left;
-      color: #D4D4D4;
-      background-color: rgba(255, 255, 255, 0.169);
+      color: #000000;
+      background-color: rgba(255, 255, 255, 0.49);
       font-family: 'Asap', sans-serif;
       font-size: 0.75em;
       line-height: 1.5;
@@ -3507,6 +3551,11 @@
         line-height: 1.625;
       }
 
+      #icons02 {
+        font-size: 2em;
+        gap: 0.25rem;
+      }
+
       #icons01 {
         font-size: 2em;
         gap: 0.25rem;
@@ -3524,7 +3573,12 @@
         width: 100% !important;
       }
 
-      .image.style1 img {
+      #image02 .frame {
+        width: 21rem;
+        height: 22.5rem !important;
+      }
+
+      #image02 img {
         height: 100% !important;
         object-fit: cover;
         object-position: center;
@@ -3532,8 +3586,8 @@
       }
 
       .image.style4 .frame {
-        width: 25rem;
-        height: 18.75rem !important;
+        width: 35rem;
+        height: 23.75rem !important;
       }
 
       .image.style4 img {
@@ -3575,6 +3629,58 @@
         width: 100% !important;
       }
 
+      #image13 .frame {
+        width: 22.125rem;
+        height: 15rem !important;
+      }
+
+      #image13 img {
+        height: 100% !important;
+        object-fit: cover;
+        object-position: center;
+        width: 100% !important;
+      }
+
+      #image12:not(:first-child) {
+        margin-top: 0.5625rem !important;
+      }
+
+      #image12:not(:last-child) {
+        margin-bottom: 0.5625rem !important;
+      }
+
+      #image12 .frame {
+        width: 18rem;
+        height: 22.5rem !important;
+      }
+
+      #image12 img {
+        height: 100% !important;
+        object-fit: cover;
+        object-position: center;
+        width: 100% !important;
+      }
+
+      #image11:not(:first-child) {
+        margin-top: 0.5625rem !important;
+      }
+
+      #image11:not(:last-child) {
+        margin-bottom: 0.5625rem !important;
+      }
+
+      #image11 .frame {
+        width: 18rem;
+        height: 22.5rem !important;
+      }
+
+      #image11 img {
+        height: 100% !important;
+        object-fit: cover;
+        object-position: center;
+        width: 100% !important;
+      }
+
       .video.style2 video {
         width: 18rem;
       }
@@ -3583,71 +3689,11 @@
         width: 18rem;
       }
 
-      #video05 video {
-        width: 44.625rem;
-      }
-
-      #video05 .frame {
-        width: 44.625rem;
-      }
-
-      #video06 video {
-        width: 39.875rem;
-      }
-
-      #video06 .frame {
-        width: 39.875rem;
-      }
-
-      #video01 video {
-        width: 39.875rem;
-      }
-
-      #video01 .frame {
-        width: 39.875rem;
-      }
-
-      #video03 video {
-        width: 18rem;
-      }
-
-      #video03 .frame {
-        width: 18rem;
-      }
-
       #divider07:before {
         width: 100rem;
       }
 
       #divider08:before {
-        width: 100rem;
-      }
-
-      #divider03:before {
-        width: 100rem;
-      }
-
-      #divider04:before {
-        width: 100rem;
-      }
-
-      #divider09:before {
-        width: 100rem;
-      }
-
-      #divider10:before {
-        width: 100rem;
-      }
-
-      #divider01:before {
-        width: 100rem;
-      }
-
-      #divider02:before {
-        width: 100rem;
-      }
-
-      #divider11:before {
         width: 100rem;
       }
 
@@ -3725,8 +3771,12 @@
         height: 10rem !important;
       }
 
+      #image02 .frame {
+        height: 18rem !important;
+      }
+
       .image.style4 .frame {
-        height: 15rem !important;
+        height: 19rem !important;
       }
 
       #image05 .frame {
@@ -3735,6 +3785,18 @@
 
       .image.style3 .frame {
         height: 16.5rem !important;
+      }
+
+      #image13 .frame {
+        height: 12rem !important;
+      }
+
+      #image12 .frame {
+        height: 18rem !important;
+      }
+
+      #image11 .frame {
+        height: 18rem !important;
       }
     }
 
@@ -3875,6 +3937,10 @@
         font-size: 0.625em;
       }
 
+      #icons02 {
+        gap: 0.1875rem;
+      }
+
       #icons01 {
         gap: 0.1875rem;
       }
@@ -3883,8 +3949,12 @@
         height: 8.75rem !important;
       }
 
+      #image02 .frame {
+        height: 15.75rem !important;
+      }
+
       .image.style4 .frame {
-        height: 13.125rem !important;
+        height: 16.625rem !important;
       }
 
       #image05 .frame {
@@ -3893,6 +3963,18 @@
 
       .image.style3 .frame {
         height: 14.4375rem !important;
+      }
+
+      #image13 .frame {
+        height: 10.5rem !important;
+      }
+
+      #image12 .frame {
+        height: 15.75rem !important;
+      }
+
+      #image11 .frame {
+        height: 15.75rem !important;
       }
 
       #gallery01 ul li .caption p {
@@ -4012,9 +4094,54 @@
                         <use xlink:href="#icon-5781ca2e1fb79e9a339ab93b15347b29"></use>
                       </svg><span class="label">Games</span></a></li>
                 </ul>
+                <ul id="icons02" class="icons">
+                  <li><a class="n01"
+                      href="/cdn-cgi/l/email-protection#3b5f5a55525e574954485e556402087b53544f565a525715585456"
+                      role="button"><svg aria-labelledby="icons02-icon-1-title">
+                        <title id="icons02-icon-1-title">Email</title>
+                        <use xlink:href="#icon-c3c8e1063e3b7f84f6b54712741de139"></use>
+                      </svg><span class="label">Email</span></a></li>
+                  <li><a class="n02" href="https://www.linkedin.com/in/daniel-ros%C3%A9n/" role="button"><svg
+                        aria-labelledby="icons02-icon-2-title">
+                        <title id="icons02-icon-2-title">LinkedIn</title>
+                        <use xlink:href="#icon-bf393d6ea48a4e69e1ed58a3563b94a5"></use>
+                      </svg><span class="label">LinkedIn</span></a></li>
+                  <li><a class="n03" href="https://github.com/DRossen" role="button"><svg
+                        aria-labelledby="icons02-icon-3-title">
+                        <title id="icons02-icon-3-title">GitHub</title>
+                        <use xlink:href="#icon-8c4b37645de3c276d895d87df51ba614"></use>
+                      </svg><span class="label">GitHub</span></a></li>
+                  <li><a class="n04"
+                      href="https://drive.google.com/file/d/1HQnrU_GJH92tDzXWydDBSfnJpC-pR0zN/view?usp=sharing"
+                      role="button"><svg aria-labelledby="icons02-icon-4-title">
+                        <title id="icons02-icon-4-title">CV</title>
+                        <use xlink:href="#icon-396f473e8a8386b5ca989ade22d6ada7"></use>
+                      </svg><span class="label">CV</span></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="about-section">
+          <div id="container03" class="container default">
+            <div class="wrapper">
+              <div class="inner">
+                <div id="image01" class="image" data-position="center"><span class="frame">
+                  <img src="assets/profilepicture.png" alt="profilepicture" /></span></div>
+                <p id="text03">About me</p>
+                <p id="text04"><span class="p"><strong>Background</strong><br /> Games have always been a huge part of
+                    my life. They&#39;ve not only entertained me, but sparked my imagination and challenged my me to
+                    think in new ways</span><span class="p">I&#39;ve always liked making things and figuring out how
+                    stuff works,<br /> and after a couple of years in the Telecom industry it became clear I wanted to
+                    do something more creative for a living.</span><span class="p">That led me to study at The Game
+                    Assembly and then into an internship at The GD Studio. So far it has been an incredible journey and
+                    I am excited for what the future has to offer.</span><span class="p"><strong>Outside of
+                      work</strong><br /> I still enjoy playing games, just on a smaller scale. I’m also into sports and
+                    thrive in team environments. Recently I picked up golf with my younger brother. Turns out it’s a
+                    much more fun way of taking a walk (most of the time).</span></p>
                 <ul id="icons01" class="icons">
                   <li><a class="n01"
-                      href="/cdn-cgi/l/email-protection#5135303f38343d233e22343f0e686211393e253c30383d7f323e3c"
+                      href="/cdn-cgi/l/email-protection#6f0b0e01060a031d001c0a0130565c2f07001b020e0603410c0002"
                       role="button"><svg aria-labelledby="icons01-icon-1-title">
                         <title id="icons01-icon-1-title">Email</title>
                         <use xlink:href="#icon-c3c8e1063e3b7f84f6b54712741de139"></use>
@@ -4029,32 +4156,13 @@
                         <title id="icons01-icon-3-title">GitHub</title>
                         <use xlink:href="#icon-8c4b37645de3c276d895d87df51ba614"></use>
                       </svg><span class="label">GitHub</span></a></li>
-                  <li><a class="n04" href="#" role="button"><svg aria-labelledby="icons01-icon-4-title">
+                  <li><a class="n04"
+                      href="https://drive.google.com/file/d/1HQnrU_GJH92tDzXWydDBSfnJpC-pR0zN/view?usp=sharing"
+                      role="button"><svg aria-labelledby="icons01-icon-4-title">
                         <title id="icons01-icon-4-title">CV</title>
                         <use xlink:href="#icon-396f473e8a8386b5ca989ade22d6ada7"></use>
                       </svg><span class="label">CV</span></a></li>
                 </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section id="about-section">
-          <div id="container03" class="container default">
-            <div class="wrapper">
-              <div class="inner">
-                <div id="image01" class="image" data-position="center"><span class="frame"><img
-                      src="https://danieltestlight.carrd.co/assets/images/image01.jpg?v=33c2b74d" alt="" /></span></div>
-                <p id="text03">About me</p>
-                <p id="text04"><span class="p"><strong>Background</strong><br /> Games have always been a huge part of
-                    my life. They&#39;ve not only entertained me, but sparked my imagination and challenged my me to
-                    think in new ways</span><span class="p">I&#39;ve always liked making things and figuring out how
-                    stuff works,<br /> and after a couple of years in the Telecom industry it became clear I wanted to
-                    do something more creative for a living.</span><span class="p">That led me to study at The Game
-                    Assembly and then into an internship at The GD Studio. So far it has been an incredible journey and
-                    I am excited for what the future has to offer.</span><span class="p">Outside of work, I still enjoy
-                    playing games, just on a smaller scale. I’m also into sports and thrive in team environments.
-                    Recently I picked up golf with my younger brother. Turns out it’s a much more fun way of taking a
-                    walk (most of the time).</span></p>
               </div>
             </div>
           </div>
@@ -4137,8 +4245,7 @@
                 <div>
                   <div id="image03" class="style4 image" data-position="center">
                     <a href="#navgrid" class="frame">
-                      <img src="assets/Navgrid/GridTraceSquare.gif"  alt="GridTraceSquare" />
-                    </a>
+                      <img src="assets/Navgrid/GridTraceSquare.gif" alt="GridTraceSquare" /></a>
                   </div>
                 </div>
               </div>
@@ -4166,11 +4273,9 @@
                   </ul>
                 </div>
                 <div>
-                  <div id="image04" class="style4 image" data-position="center">
-                    <a href="#influencemaps" class="frame">
-                      <img src="assets/Influencemap/InfluenceMap.gif" alt="InfluenceMap" />
-                    </a>
-                  </div>
+                  <div id="image04" class="style4 image" data-position="center"><a href="#influencemaps"
+                      class="frame"><img
+                        src="assets/Influencemap/InfluenceMaps.gif" alt="InfluenceMaps" /></a></div>
                 </div>
               </div>
             </div>
@@ -4195,11 +4300,9 @@
                   </ul>
                 </div>
                 <div>
-                  <div id="image02" class="style1 image" data-position="center">
-                    <a href="#pathfinding" class="frame">
-                      <img src="assets/Navmesh/Pathfinding.gif" alt=" Pathfinding" />
-                    </a>
-                  </div>
+                  <div id="image02" class="image" data-position="center"><a href="#pathfinding"
+                      class="frame"><img
+                        src="assets/Navmesh/NavmeshPathfinding.gif" alt="NavmeshPathfinding" /></a></div>
                 </div>
               </div>
             </div>
@@ -4222,11 +4325,9 @@
                   </ul>
                 </div>
                 <div>
-                  <div id="image05" class="image" data-position="center">
-                    <a href="#flockingboids" class="frame">
-                      <img src="assets/Boids/FlockingBods.gif" alt="FlockingBods" />
-                    </a>
-                  </div>
+                  <div id="image05" class="image" data-position="center"><a href="#flockingboids"
+                      class="frame"><img
+                        src="assets/Boids/FlockingBods.gif" alt="FlockingBods" /></a></div>
                 </div>
               </div>
             </div>
@@ -4238,10 +4339,10 @@
               <div class="inner">
                 <div>
                   <h2 id="text32" class="style4">Influence Maps</h2>
-                  <div id="video05" class="video"><video
-                      src="https://danieltestlight.carrd.co/assets/videos/video05.mp4?v=33c2b74d"
-                      poster="assets/videos/video05.mp4.jpg?v=33c2b74d" title="2D platformer" preload="auto" playsinline
-                      webkit-playsinline controls></video></div>
+                  <div id="image07" class="style4 image" data-position="center"><a
+                      href="https://drossen.github.io/webbsite/assets/FlockingBods.gif" class="frame deferred"><img
+                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjAiIHk9IjAiIHZpZXdCb3g9IjAgMCA4MDAgNDUwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjQ1MCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI%2BPHJlY3QgZmlsbD0idHJhbnNwYXJlbnQiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiLz48L3N2Zz4%3D"
+                        data-src="assets/images/image07.gif?v=1ab222bf" alt="" /></a></div>
                   <p id="text35" class="style2"><span class="p"><strong>Green</strong> unit (<strong>Fleeing</strong>)
                       constantly tries to move to a position under least amount of enemy influence (Red units).<br />
                       <strong>Red</strong> Units (<strong>Enemies</strong>) are coded simply to move towards the green
@@ -4260,7 +4361,7 @@
                   <div id="image06" class="style3 image" data-position="center"><a
                       href="https://drossen.github.io/webbsite/assets/FlockingBods.gif" class="frame deferred"><img
                         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjAiIHk9IjAiIHZpZXdCb3g9IjAgMCAxMDY1IDkxNiIgd2lkdGg9IjEwNjUiIGhlaWdodD0iOTE2IiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48cmVjdCBmaWxsPSIjNmE2YTgxIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIi8%2BPC9zdmc%2B"
-                        data-src="assets/images/image06.jpg?v=33c2b74d" alt="" /></a></div>
+                        data-src="assets/images/image06.jpg?v=1ab222bf" alt="" /></a></div>
                   <p id="text42" class="style2">On a set timer, the system looks to re-paint influence of all registered
                     units that have moved to a new cell since last update-tick. We spread half the influence on our
                     current position and our future position (position + velocity) to better represent the units
@@ -4276,7 +4377,7 @@
                   <div id="image09" class="style3 image" data-position="center"><a
                       href="https://drossen.github.io/webbsite/assets/FlockingBods.gif" class="frame deferred"><img
                         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjAiIHk9IjAiIHZpZXdCb3g9IjAgMCAxMDY1IDkwNSIgd2lkdGg9IjEwNjUiIGhlaWdodD0iOTA1IiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48cmVjdCBmaWxsPSIjN2I2Zjg1IiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIi8%2BPC9zdmc%2B"
-                        data-src="assets/images/image09.jpg?v=33c2b74d" alt="" /></a></div>
+                        data-src="assets/images/image09.jpg?v=1ab222bf" alt="" /></a></div>
                   <p id="text46" class="style2"><span class="p">When retrieving information units request a
                       &quot;Working Map&quot; of a certain size and place (position) in the world.<br /> The modular way
                       of the workmap then allows us to fill it with data from the influence maps by specifying Influence
@@ -4333,22 +4434,18 @@
                   <div id="gallery01" class="gallery">
                     <div class="inner">
                       <ul>
-                        <li>
-                          <span class="thumbnail n01">
-                            <span class="frame">
-                              <img src="assets/Navgrid/NavgridBFS.gif" alt="Breadth First Search (BFS)" />
-                            </span>
-                          </span>
+                        <li><span class="thumbnail n01"><span class="frame deferred"><img
+                                src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjAiIHk9IjAiIHZpZXdCb3g9IjAgMCA4MDAgNDUwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjQ1MCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI%2BPHJlY3QgZmlsbD0idHJhbnNwYXJlbnQiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiLz48L3N2Zz4%3D"
+                                data-src="assets/images/gallery01/8fe22ef4.gif?v=1ab222bf"
+                                alt="Breadth First Search (BFS)" /></span></span>
                           <div class="caption">
                             <p>Breadth First Search (BFS)</p>
                           </div>
                         </li>
-                          <li>
-                            <span class="thumbnail n02">
-                              <span class="frame">
-                                <img src="assets/Navgrid/FlightVolumes.gif" alt="FlightVolumes">
-                              </span>
-                            </span>
+                        <li><span class="thumbnail n02"><span class="frame deferred"><img
+                                src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjAiIHk9IjAiIHZpZXdCb3g9IjAgMCA5ODQgNTYyIiB3aWR0aD0iOTg0IiBoZWlnaHQ9IjU2MiIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI%2BPHJlY3QgZmlsbD0idHJhbnNwYXJlbnQiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiLz48L3N2Zz4%3D"
+                                data-src="assets/images/gallery01/6725dc73.png?v=1ab222bf"
+                                alt="Flight Volumes" /></span></span>
                           <div class="caption">
                             <p>Flight Volumes</p>
                           </div>
@@ -4365,36 +4462,34 @@
                       cells that are not reachable through this search are considered disconnected from the main grid
                       and are also marked as invalid.</span></p>
                   <p id="text11" class="style7">CODE define flight volumes</p>
-                  <hr id="divider04">
                   <p id="text30" class="style1">Grid Tracing</p>
-                  <div id="image10" class="style3 image" data-position="center">
-                    <div class="frame">
-                      <img src="assets/Navgrid/GridTraceSquare.gif" alt="GridTraceSquare">
-                    </div>
-                  </div>
-                  <p id="text65" class="style2">Work in progress</p>
+                  <div id="image10" class="style3 image" data-position="center"><a
+                      href="https://drossen.github.io/webbsite/assets/FlockingBods.gif" class="frame deferred"><img
+                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjAiIHk9IjAiIHZpZXdCb3g9IjAgMCA4MDAgNDUwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjQ1MCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI%2BPHJlY3QgZmlsbD0idHJhbnNwYXJlbnQiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiLz48L3N2Zz4%3D"
+                        data-src="assets/images/image10.gif?v=1ab222bf" alt="" /></a></div>
+                  <p id="text65" class="style2"><span class="p">A common optimization technique for grid-based
+                      navigation is Bresenham&#39;s line algorithm. Given a line segment, it efficiently determines
+                      which grid cells the line intersects, one step at a time.</span><span class="p">By leveraging
+                      this, we can perform a grid trace from each apex point in the path, effectively “string-pulling”
+                      the A* result. This process simplifies the route, reducing the number of waypoints and producing a
+                      more optimized, direct path through the grid.</span></p>
                   <p id="text55" class="style7">CODE grid trace</p>
-                  <hr id="divider09">
                   <p id="text56" class="style1">Navigating</p>
                   <div id="gallery02" class="gallery">
                     <div class="inner">
                       <ul>
-                        <li>
-                          <span class="thumbnail n01">
-                            <span class="frame">
-                              <img src="assets/Navgrid/NavgridPathfind.gif" alt="A* path" />
-                            </span>
-                          </span>
+                        <li><span class="thumbnail n01"><span class="frame deferred"><img
+                                src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjAiIHk9IjAiIHZpZXdCb3g9IjAgMCA4MDAgNDUwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjQ1MCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI%2BPHJlY3QgZmlsbD0idHJhbnNwYXJlbnQiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiLz48L3N2Zz4%3D"
+                                data-src="assets/images/gallery02/ce437705.gif?v=1ab222bf"
+                                alt="A* path" /></span></span>
                           <div class="caption">
                             <p>A* path</p>
                           </div>
                         </li>
-                        <li>
-                          <span class="thumbnail n02">
-                            <span class="frame">
-                              <img src="assets/Navgrid/NavgridPathfindStringPulled.gif" alt="String pulled path" />
-                            </span>
-                          </span>
+                        <li><span class="thumbnail n02"><span class="frame deferred"><img
+                                src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjAiIHk9IjAiIHZpZXdCb3g9IjAgMCA4MDAgNDUwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjQ1MCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI%2BPHJlY3QgZmlsbD0idHJhbnNwYXJlbnQiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiLz48L3N2Zz4%3D"
+                                data-src="assets/images/gallery02/0d54c5ec.gif?v=1ab222bf"
+                                alt="String pulled path" /></span></span>
                           <div class="caption">
                             <p>String pulled path</p>
                           </div>
@@ -4411,7 +4506,6 @@
                       and optimized route. It&#39;s conceptually similar to the funneling algorithm commonly used in
                       navmesh-based pathfinding.</span></p>
                   <p id="text57" class="style7">CODE navigating</p>
-                  <hr id="divider10">
                   <p id="text59" class="style1">Further improvements</p>
                   <p id="text60" class="style2"><span class="p"><strong>Octree-Based Spatial Partitioning</strong><br />
                       Replacing the uniform grid with an Octree structure allows for adaptive subdivision of space. This
@@ -4432,15 +4526,20 @@
               <div class="inner">
                 <div>
                   <h2 id="text06" class="style4">Navmesh Pathfinding</h2>
-                  <div id="video01" class="video"><video
-                      src="https://danieltestlight.carrd.co/assets/videos/video01.mp4?v=33c2b74d"
-                      poster="assets/videos/video01.mp4.jpg?v=33c2b74d" title="2D platformer" preload="auto" playsinline
-                      webkit-playsinline controls></video></div>
+                  <div id="image08" class="style4 image" data-position="center"><a
+                      href="https://drossen.github.io/webbsite/assets/FlockingBods.gif" class="frame deferred"><img
+                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjAiIHk9IjAiIHZpZXdCb3g9IjAgMCA4MDAgNDUwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjQ1MCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI%2BPHJlY3QgZmlsbD0idHJhbnNwYXJlbnQiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiLz48L3N2Zz4%3D"
+                        data-src="assets/images/image08.gif?v=1ab222bf" alt="" /></a></div>
+                  <p id="text09" class="style2"><span class="p">Video showing the algorithm handing out a path to the
+                      player in a top down point and click game.<br /> I used my implementation as part of a group
+                      project at TGA, see <a
+                        href="https://www.youtube.com/watch?v=yFKcPT-sk1I&ab_channel=TheGameAssembly">trailer on
+                        youtube</a> to see the final results of the project.</span></p>
                   <p id="text13" class="style1">Funnel algorithm</p>
-                  <div id="video03" class="video"><video
-                      src="https://danieltestlight.carrd.co/assets/videos/video03.mp4?v=33c2b74d"
-                      poster="assets/videos/video03.mp4.jpg?v=33c2b74d" title="2D platformer" preload="auto" playsinline
-                      webkit-playsinline controls></video></div>
+                  <div id="image12" class="image" data-position="center"><a
+                      href="https://drossen.github.io/webbsite/assets/FlockingBods.gif" class="frame deferred"><img
+                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjAiIHk9IjAiIHZpZXdCb3g9IjAgMCA4NzYgODc4IiB3aWR0aD0iODc2IiBoZWlnaHQ9Ijg3OCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI%2BPHJlY3QgZmlsbD0iIzA0MDQwNCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPjwvc3ZnPg%3D%3D"
+                        data-src="assets/images/image12.gif?v=1ab222bf" alt="" /></a></div>
                   <p id="text14" class="style2"><span class="p">The Funnel algorithm solves the most efficient way to
                       move through a series of triangles.</span><span class="p">It treats the sequence of triangles as a
                       series of portals (shared edges) and forms a &quot;funnel&quot; shape using two vectors from the
@@ -4448,10 +4547,10 @@
                       long as the funnel narrows without the sides crossing, we keep extending it. When the sides cross
                       (i.e., the funnel collapses), we set the apex to the last valid side and restart the funnel from
                       that new position.</span><span class="p">Once all edges have been processed, we perform a final
-                      check by extending both sides to the end position, ensuring no overlap occurs before returning the
-                      shortest path.</span></p>
-                  <p id="text18" class="style7">CODE Pathfind 2D</p>
-                  <hr id="divider01">
+                      check by extending both sides to the end position one at a time.<br /> If one side cross the
+                      other, we add the last valid side before adding the end position and returning the shortest
+                      path.</span></p>
+                  <p id="text18" class="style7">CODE Pathfinding 2D</p>
                   <p id="text19" class="style1">A star</p>
                   <p id="text26" class="style2"><span class="p">The A* algorithm determines the most efficient sequence
                       of nodes to traverse in a graph — in the case of a NavMesh, these nodes are triangles.</span><span
@@ -4460,11 +4559,9 @@
                       building an optimal path from start to end.</span><span class="p">However, A* relies heavily on
                       the accuracy of the heuristic function to find the most efficient sequence of nodes. A poor
                       estimate can lead to longer paths or unnecessary node expansions.</span><span class="p">Another
-                      thing I did was to create a grid where each cell contained triangles overlapping the
-                      cell.</span><span class="p">By doing this I could retrieve the start and end triangle in a
-                      efficient way.</span></p>
+                      thing I did was to create a grid where each cell contained triangles overlapping the cell.<br />
+                      By doing this I could retrieve the start and end triangle in a efficient way.</span></p>
                   <p id="text29" class="style7">CODE NavGrid get node by pos</p>
-                  <hr id="divider02">
                   <p id="text58" class="style1">Hueristics</p>
                   <p id="text61" class="style2"><span class="p">A heuristic is a function used in A* to estimate the
                       cost of traveling from a node to the goal, helping prioritize which nodes to explore.</span><span
@@ -4475,35 +4572,40 @@
                       along the shared edge between adjacent triangles. This method provides a more accurate distance
                       estimate and helps ensure the pathfinding algorithm works more efficiently and reliably.</span>
                   </p>
-                  <hr id="divider11">
+                  <div id="image11" class="image" data-position="center"><a
+                      href="https://drossen.github.io/webbsite/assets/FlockingBods.gif" class="frame deferred"><img
+                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjAiIHk9IjAiIHZpZXdCb3g9IjAgMCA4MDAgNDUwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjQ1MCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI%2BPHJlY3QgZmlsbD0idHJhbnNwYXJlbnQiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiLz48L3N2Zz4%3D"
+                        data-src="assets/images/image11.gif?v=1ab222bf" alt="" /></a></div>
                   <p id="text63" class="style1">Challanges &amp; learnings</p>
                   <p id="text64" class="style2"><span class="p">Debugging pathfinding algorithms can be particularly
                       challenging. When a bug appears, the issue is often not so easy to locate. Identifying the cause
                       requires stepping through the algorithm step by step, which can be time-consuming. The varied
                       shapes of triangles in a NavMesh add further complexity, and after resolving issues for a path
-                      from A to B, new problems may arise when testing from C to D.</span><span class="p">It&#39;s
-                      crucial that pathfinding works reliably, as erratic AI movement is immediately noticeable and can
-                      negatively impact the player experience. Ensuring smooth and accurate navigation is key to
-                      maintaining both immersion and the credibility of AI behavior.</span></p>
+                      from A to B, new problems may arise when testing from C to D.</span><span class="p">The code base
+                      for the pathfinding project works as intended, but could definitely need a cleanup and some more
+                      structure, which is something I would like to do in the future.</span></p>
                 </div><span></span>
               </div>
             </div>
           </div>
         </section>
         <section id="flockingboids-section">
-          <h2 id="text21" class="style4">Flocking Boids</h2>
           <div id="container08" class="style2 container columns">
             <div class="wrapper">
               <div class="inner">
                 <div>
-                  <div id="video06" class="video"><video
-                      src="https://danieltestlight.carrd.co/assets/videos/video06.mp4?v=33c2b74d"
-                      poster="assets/videos/video06.mp4.jpg?v=33c2b74d" title="2D platformer" preload="auto" playsinline
-                      webkit-playsinline controls></video></div>
+                  <h2 id="text21" class="style4">Flocking Boids</h2>
+                  <div id="image14" class="style4 image" data-position="center"><a
+                      href="https://drossen.github.io/webbsite/assets/FlockingBods.gif" class="frame deferred"><img
+                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjAiIHk9IjAiIHZpZXdCb3g9IjAgMCA2MDAgMzM4IiB3aWR0aD0iNjAwIiBoZWlnaHQ9IjMzOCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI%2BPHJlY3QgZmlsbD0idHJhbnNwYXJlbnQiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiLz48L3N2Zz4%3D"
+                        data-src="assets/images/image14.gif?v=1ab222bf" alt="" /></a></div>
                   <p id="text25" class="style1">Steering behaviors</p>
+                  <div id="image13" class="image" data-position="center"><a
+                      href="https://drossen.github.io/webbsite/assets/FlockingBods.gif" class="frame deferred"><img
+                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjAiIHk9IjAiIHZpZXdCb3g9IjAgMCA4MDAgNDUwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjQ1MCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI%2BPHJlY3QgZmlsbD0idHJhbnNwYXJlbnQiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiLz48L3N2Zz4%3D"
+                        data-src="assets/images/image13.gif?v=1ab222bf" alt="" /></a></div>
                   <p id="text27" class="style2">Work in progress</p>
                   <p id="text34" class="style7">CODE</p>
-                  <hr id="divider03">
                   <p id="text23" class="style1">Movement Controller</p>
                   <p id="text24" class="style2">Work in progress</p>
                   <p id="text36" class="style7">CODE</p>
