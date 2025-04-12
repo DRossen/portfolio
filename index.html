@@ -4137,7 +4137,7 @@
                 <div>
                   <div id="image03" class="style4 image" data-position="center">
                     <a href="#navgrid" class="frame">
-                      <img src="assets/Navgrid/GridTraceSquare.gif"  alt="GridTraceSquare" />
+                      <img src="assets/Navgrid/GridTraceSquare.gif" alt="GridTraceSquare" />
                     </a>
                   </div>
                 </div>
@@ -4241,7 +4241,8 @@
                   <div id="video05" class="video"><video
                       src="https://danieltestlight.carrd.co/assets/videos/video05.mp4?v=33c2b74d"
                       poster="assets/videos/video05.mp4.jpg?v=33c2b74d" title="2D platformer" preload="auto" playsinline
-                      webkit-playsinline controls></video></div>
+                      webkit-playsinline controls></video>
+                  </div>
                   <p id="text35" class="style2"><span class="p"><strong>Green</strong> unit (<strong>Fleeing</strong>)
                       constantly tries to move to a position under least amount of enemy influence (Red units).<br />
                       <strong>Red</strong> Units (<strong>Enemies</strong>) are coded simply to move towards the green
@@ -4257,263 +4258,260 @@
                       bit further by allowing multiple influence maps to be combined during runtime, essentially
                       creating a &quot;texture&quot; that AI&#39;s can make strategic decisions based on.</span></p>
                   <p id="text41" class="style1">Spreading Influence</p>
-                  <div id="image06" class="style3 image" data-position="center"><a
-                      href="https://drossen.github.io/webbsite/assets/FlockingBods.gif" class="frame deferred"><img
-                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjAiIHk9IjAiIHZpZXdCb3g9IjAgMCAxMDY1IDkxNiIgd2lkdGg9IjEwNjUiIGhlaWdodD0iOTE2IiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48cmVjdCBmaWxsPSIjNmE2YTgxIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIi8%2BPC9zdmc%2B"
-                        data-src="assets/images/image06.jpg?v=33c2b74d" alt="" /></a></div>
-                  <p id="text42" class="style2">On a set timer, the system looks to re-paint influence of all registered
-                    units that have moved to a new cell since last update-tick. We spread half the influence on our
-                    current position and our future position (position + velocity) to better represent the units
-                    influence.</p>
-                  <p id="text43" class="style2"><span class="p">The need to <strong>adapt to level geometry</strong> is
-                      important also, as it would not make sense to retrieve or apply values on the other side of a wall
-                      or outside the map, we want to mark up which cells are valid.<br /> To do so we compare each
-                      cell&#39;s center position against the Navmesh and mark cells outside of it as invalid. Also when
-                      both retrieving and applying influence we use a flood fill algorithm (BFS) to adapt it to the
-                      level geometry.</span></p>
-                  <p id="text44" class="style7">CODE Flood fill influence</p>
-                  <p id="text45" class="style1">Retrieving information</p>
-                  <div id="image09" class="style3 image" data-position="center"><a
-                      href="https://drossen.github.io/webbsite/assets/FlockingBods.gif" class="frame deferred"><img
-                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjAiIHk9IjAiIHZpZXdCb3g9IjAgMCAxMDY1IDkwNSIgd2lkdGg9IjEwNjUiIGhlaWdodD0iOTA1IiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48cmVjdCBmaWxsPSIjN2I2Zjg1IiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIi8%2BPC9zdmc%2B"
-                        data-src="assets/images/image09.jpg?v=33c2b74d" alt="" /></a></div>
-                  <p id="text46" class="style2"><span class="p">When retrieving information units request a
-                      &quot;Working Map&quot; of a certain size and place (position) in the world.<br /> The modular way
-                      of the workmap then allows us to fill it with data from the influence maps by specifying Influence
-                      type, from which Team and of what Magnitude.</span><span class="p">This way we can collect
-                      different types of influences and combine them using various math operations.</span></p>
-                  <p id="text47" class="style7">CODE Workmap</p>
-                  <hr id="divider07">
-                  <p id="text48" class="style1">Initialization process</p>
-                  <p id="text49" class="style2"><span class="p">Units register them self into the system, specifying
-                      influence type, spread radius, influence strength and falloff curve.<br /> The system creates the
-                      desired influence maps and stores the information for each user on how their influence should be
-                      applied.</span><span class="p">The falloff curve tells the system how the values should be applied
-                      based on the distance to the units position. Having the ability to set a certain curve is useful
-                      as some units might not be threatening at close range and want higher values to be applied as the
-                      distance increases.</span><span class="p">To increase performance we can skip running the distance
-                      based curve calculations during runtime as the spread radius and falloff curve gives us all
-                      information we need to pre-calculate this.<br /> The system therefor creates
-                      &quot;InterestTemplates&quot; during setup which basically are smaller grids holding the magnitude
-                      of the influence value for each cell of the specified radius and type. A small cost of memory but
-                      quite a big gain to runtime performance.</span></p>
-                  <p id="text50" class="style7">CODE Init Templates</p>
-                  <hr id="divider08">
-                  <p id="text51" class="style1">Examples of usage</p>
-                  <p id="text52" class="style2"><span class="p">The dynamic setup of the system allows both dumb and
-                      smart AI&#39;s to accomplish their goals by assigning weighted values when retrieving influence
-                      data through the Workmap.</span><span class="p">A dumb AI might just care about destroying nearby
-                      opponents no mater what, only taking the opponents proximity influence into account when choosing
-                      a location to throw a bomb at.</span><span class="p">A more strategic and smart AI might want to
-                      take allied units proximity into account to avoid hurting them.</span><span
-                      class="p"><strong>Example scenarios:</strong><br /> - Is there threat at my location higher than
-                      X? Retrieve a safe position, I want to flee!<br /> - is there threat at my allied healer location?
-                      Retrieve position around it with highest amount of threat, I will defend you!<br /> - Do the area
-                      around me have a total influence value higher than X? Time to use my Area of effect spell!<br /> -
-                      Where do my grenade do most damage? Retrieve the location with highest enemy influence (center of
-                      mass)!<br /> - Where are my allies located? Retrieve a position with low location value, I want to
-                      spread from my allies!</span></p>
-                  <p id="text53" class="style1">Further improvements</p>
-                  <p id="text54" class="style2"><span class="p">- Having a Octree as main grid that can hold influence
-                      maps within it to avoid unnecessary cells outside the map.<br /> - Add a scheduler to spread out
-                      repainting of influence over multiple frames.<br /> - Bread-crumbing influence that stays in cells
-                      and decay over time.</span></p>
-                </div><span></span>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section id="navgrid-section">
-          <h2 id="text08" class="style4">Navigation Grid</h2>
-          <div id="container12" class="style2 container columns">
-            <div class="wrapper">
-              <div class="inner">
-                <div>
-                  <p id="text20" class="style1">Defining flight volumes</p>
-                  <div id="gallery01" class="gallery">
-                    <div class="inner">
-                      <ul>
-                        <li>
-                          <span class="thumbnail n01">
-                            <span class="frame">
-                              <img src="assets/Navgrid/NavgridBFS.gif" alt="Breadth First Search (BFS)" />
-                            </span>
-                          </span>
-                          <div class="caption">
-                            <p>Breadth First Search (BFS)</p>
-                          </div>
-                        </li>
-                          <li>
-                            <span class="thumbnail n02">
-                              <span class="frame">
-                                <img src="assets/Navgrid/FlightVolumes.gif" alt="FlightVolumes">
-                              </span>
-                            </span>
-                          <div class="caption">
-                            <p>Flight Volumes</p>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
+                  <div id="image06" class="style3 image" data-position="center">
+                    <img src="assets/Influencemap/PaintInfluence.png" alt="PaintInfluence">
                   </div>
-                  <p id="text10" class="style2"><span class="p">The setup process is a crucial step in determining which
-                      volumes within the 3D navigation grid are traversable. It involves performing various collision
-                      checks against the terrain, static objects, and predefined blocked areas. Cells that intersect
-                      with any of these obstacles are marked as invalid.</span><span class="p">After marking intersected
-                      cells, a breadth-first search (BFS) is initiated from a cell known to be connected to the main
-                      grid. This allows us to identify and validate all connected, traversable cells. Any remaining
-                      cells that are not reachable through this search are considered disconnected from the main grid
-                      and are also marked as invalid.</span></p>
-                  <p id="text11" class="style7">CODE define flight volumes</p>
-                  <hr id="divider04">
-                  <p id="text30" class="style1">Grid Tracing</p>
-                  <div id="image10" class="style3 image" data-position="center">
-                    <div class="frame">
-                      <img src="assets/Navgrid/GridTraceSquare.gif" alt="GridTraceSquare">
-                    </div>
-                  </div>
-                  <p id="text65" class="style2">Work in progress</p>
-                  <p id="text55" class="style7">CODE grid trace</p>
-                  <hr id="divider09">
-                  <p id="text56" class="style1">Navigating</p>
-                  <div id="gallery02" class="gallery">
-                    <div class="inner">
-                      <ul>
-                        <li>
-                          <span class="thumbnail n01">
-                            <span class="frame">
-                              <img src="assets/Navgrid/NavgridPathfind.gif" alt="A* path" />
-                            </span>
-                          </span>
-                          <div class="caption">
-                            <p>A* path</p>
-                          </div>
-                        </li>
-                        <li>
-                          <span class="thumbnail n02">
-                            <span class="frame">
-                              <img src="assets/Navgrid/NavgridPathfindStringPulled.gif" alt="String pulled path" />
-                            </span>
-                          </span>
-                          <div class="caption">
-                            <p>String pulled path</p>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <p id="text39" class="style2"><span class="p">Pathfinding is handled using a basic A* algorithm, which
-                      calculates the sequence of volumes (or cells) that need to be traversed from point A to point B.
-                      However, since the grid is cell-based, the resulting path tends to be jagged and overly detailed,
-                      following a direct cell-to-cell transition that lacks smoothness.</span><span class="p">To both
-                      smooth the path and reduce the number of navigation points, we apply the Grid Trace algorithm.
-                      This technique effectively &quot;string-pulls&quot; the path, simplifying it into a more direct
-                      and optimized route. It&#39;s conceptually similar to the funneling algorithm commonly used in
-                      navmesh-based pathfinding.</span></p>
-                  <p id="text57" class="style7">CODE navigating</p>
-                  <hr id="divider10">
-                  <p id="text59" class="style1">Further improvements</p>
-                  <p id="text60" class="style2"><span class="p"><strong>Octree-Based Spatial Partitioning</strong><br />
-                      Replacing the uniform grid with an Octree structure allows for adaptive subdivision of space. This
-                      enables finer resolution in complex or narrow areas while keeping broader spaces lightweight,
-                      leading to more precise path generation and better handling of obstacles in 3D
-                      environments.</span><span class="p"><strong>Bezier Curve Smoothing</strong><br /> After generating
-                      the simplified path, applying Bezier curves (or other spline-based interpolation methods like
-                      Catmull-Rom or B-splines) can produce smooth, natural-looking flight paths. This is especially
-                      useful for aerial navigation, where abrupt turns are unrealistic.</span></p>
-                </div><span></span>
-              </div>
+                </div>
+                <p id="text42" class="style2">On a set timer, the system looks to re-paint influence of all registered
+                  units that have moved to a new cell since last update-tick. We spread half the influence on our
+                  current position and our future position (position + velocity) to better represent the units
+                  influence.</p>
+                <p id="text43" class="style2"><span class="p">The need to <strong>adapt to level geometry</strong> is
+                    important also, as it would not make sense to retrieve or apply values on the other side of a wall
+                    or outside the map, we want to mark up which cells are valid.<br /> To do so we compare each
+                    cell&#39;s center position against the Navmesh and mark cells outside of it as invalid. Also when
+                    both retrieving and applying influence we use a flood fill algorithm (BFS) to adapt it to the
+                    level geometry.</span></p>
+                <p id="text44" class="style7">CODE Flood fill influence</p>
+                <p id="text45" class="style1">Retrieving information</p>
+                <div id="image09" class="style3 image" data-position="center">
+                  <img src="assets/Influencemap/PaintInfluence2.png" alt="PaintInfluence2">
+                </div>
+                <p id="text46" class="style2"><span class="p">When retrieving information units request a
+                    &quot;Working Map&quot; of a certain size and place (position) in the world.<br /> The modular way
+                    of the workmap then allows us to fill it with data from the influence maps by specifying Influence
+                    type, from which Team and of what Magnitude.</span><span class="p">This way we can collect
+                    different types of influences and combine them using various math operations.</span></p>
+                <p id="text47" class="style7">CODE Workmap</p>
+                <hr id="divider07">
+                <p id="text48" class="style1">Initialization process</p>
+                <p id="text49" class="style2"><span class="p">Units register them self into the system, specifying
+                    influence type, spread radius, influence strength and falloff curve.<br /> The system creates the
+                    desired influence maps and stores the information for each user on how their influence should be
+                    applied.</span><span class="p">The falloff curve tells the system how the values should be applied
+                    based on the distance to the units position. Having the ability to set a certain curve is useful
+                    as some units might not be threatening at close range and want higher values to be applied as the
+                    distance increases.</span><span class="p">To increase performance we can skip running the distance
+                    based curve calculations during runtime as the spread radius and falloff curve gives us all
+                    information we need to pre-calculate this.<br /> The system therefor creates
+                    &quot;InterestTemplates&quot; during setup which basically are smaller grids holding the magnitude
+                    of the influence value for each cell of the specified radius and type. A small cost of memory but
+                    quite a big gain to runtime performance.</span></p>
+                <p id="text50" class="style7">CODE Init Templates</p>
+                <hr id="divider08">
+                <p id="text51" class="style1">Examples of usage</p>
+                <p id="text52" class="style2"><span class="p">The dynamic setup of the system allows both dumb and
+                    smart AI&#39;s to accomplish their goals by assigning weighted values when retrieving influence
+                    data through the Workmap.</span><span class="p">A dumb AI might just care about destroying nearby
+                    opponents no mater what, only taking the opponents proximity influence into account when choosing
+                    a location to throw a bomb at.</span><span class="p">A more strategic and smart AI might want to
+                    take allied units proximity into account to avoid hurting them.</span><span
+                    class="p"><strong>Example scenarios:</strong><br /> - Is there threat at my location higher than
+                    X? Retrieve a safe position, I want to flee!<br /> - is there threat at my allied healer location?
+                    Retrieve position around it with highest amount of threat, I will defend you!<br /> - Do the area
+                    around me have a total influence value higher than X? Time to use my Area of effect spell!<br /> -
+                    Where do my grenade do most damage? Retrieve the location with highest enemy influence (center of
+                    mass)!<br /> - Where are my allies located? Retrieve a position with low location value, I want to
+                    spread from my allies!</span></p>
+                <p id="text53" class="style1">Further improvements</p>
+                <p id="text54" class="style2"><span class="p">- Having a Octree as main grid that can hold influence
+                    maps within it to avoid unnecessary cells outside the map.<br /> - Add a scheduler to spread out
+                    repainting of influence over multiple frames.<br /> - Bread-crumbing influence that stays in cells
+                    and decay over time.</span></p>
+              </div><span></span>
             </div>
           </div>
-        </section>
-        <section id="pathfinding-section">
-          <div id="container14" class="style2 container columns">
-            <div class="wrapper">
-              <div class="inner">
-                <div>
-                  <h2 id="text06" class="style4">Navmesh Pathfinding</h2>
-                  <div id="video01" class="video"><video
-                      src="https://danieltestlight.carrd.co/assets/videos/video01.mp4?v=33c2b74d"
-                      poster="assets/videos/video01.mp4.jpg?v=33c2b74d" title="2D platformer" preload="auto" playsinline
-                      webkit-playsinline controls></video></div>
-                  <p id="text13" class="style1">Funnel algorithm</p>
-                  <div id="video03" class="video"><video
-                      src="https://danieltestlight.carrd.co/assets/videos/video03.mp4?v=33c2b74d"
-                      poster="assets/videos/video03.mp4.jpg?v=33c2b74d" title="2D platformer" preload="auto" playsinline
-                      webkit-playsinline controls></video></div>
-                  <p id="text14" class="style2"><span class="p">The Funnel algorithm solves the most efficient way to
-                      move through a series of triangles.</span><span class="p">It treats the sequence of triangles as a
-                      series of portals (shared edges) and forms a &quot;funnel&quot; shape using two vectors from the
-                      current position (the apex) to the left and right sides of each portal.</span><span class="p">As
-                      long as the funnel narrows without the sides crossing, we keep extending it. When the sides cross
-                      (i.e., the funnel collapses), we set the apex to the last valid side and restart the funnel from
-                      that new position.</span><span class="p">Once all edges have been processed, we perform a final
-                      check by extending both sides to the end position, ensuring no overlap occurs before returning the
-                      shortest path.</span></p>
-                  <p id="text18" class="style7">CODE Pathfind 2D</p>
-                  <hr id="divider01">
-                  <p id="text19" class="style1">A star</p>
-                  <p id="text26" class="style2"><span class="p">The A* algorithm determines the most efficient sequence
-                      of nodes to traverse in a graph — in the case of a NavMesh, these nodes are triangles.</span><span
-                      class="p">It works by evaluating which node has the lowest total estimated cost to the goal, using
-                      a heuristic estimate function. At each step, it expands the node with the lowest cost, gradually
-                      building an optimal path from start to end.</span><span class="p">However, A* relies heavily on
-                      the accuracy of the heuristic function to find the most efficient sequence of nodes. A poor
-                      estimate can lead to longer paths or unnecessary node expansions.</span><span class="p">Another
-                      thing I did was to create a grid where each cell contained triangles overlapping the
-                      cell.</span><span class="p">By doing this I could retrieve the start and end triangle in a
-                      efficient way.</span></p>
-                  <p id="text29" class="style7">CODE NavGrid get node by pos</p>
-                  <hr id="divider02">
-                  <p id="text58" class="style1">Hueristics</p>
-                  <p id="text61" class="style2"><span class="p">A heuristic is a function used in A* to estimate the
-                      cost of traveling from a node to the goal, helping prioritize which nodes to explore.</span><span
-                      class="p">When estimating distances on a NavMesh, using the center of a triangle for the heuristic
-                      can be problematic due to the variety in triangle shapes. Triangles with irregular proportions
-                      (e.g., long, narrow ones) can cause misleading estimates and result in inefficient
-                      paths.</span><span class="p">A better approach is to base the heuristic on the nearest position
-                      along the shared edge between adjacent triangles. This method provides a more accurate distance
-                      estimate and helps ensure the pathfinding algorithm works more efficiently and reliably.</span>
-                  </p>
-                  <hr id="divider11">
-                  <p id="text63" class="style1">Challanges &amp; learnings</p>
-                  <p id="text64" class="style2"><span class="p">Debugging pathfinding algorithms can be particularly
-                      challenging. When a bug appears, the issue is often not so easy to locate. Identifying the cause
-                      requires stepping through the algorithm step by step, which can be time-consuming. The varied
-                      shapes of triangles in a NavMesh add further complexity, and after resolving issues for a path
-                      from A to B, new problems may arise when testing from C to D.</span><span class="p">It&#39;s
-                      crucial that pathfinding works reliably, as erratic AI movement is immediately noticeable and can
-                      negatively impact the player experience. Ensuring smooth and accurate navigation is key to
-                      maintaining both immersion and the credibility of AI behavior.</span></p>
-                </div><span></span>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section id="flockingboids-section">
-          <h2 id="text21" class="style4">Flocking Boids</h2>
-          <div id="container08" class="style2 container columns">
-            <div class="wrapper">
-              <div class="inner">
-                <div>
-                  <div id="video06" class="video"><video
-                      src="https://danieltestlight.carrd.co/assets/videos/video06.mp4?v=33c2b74d"
-                      poster="assets/videos/video06.mp4.jpg?v=33c2b74d" title="2D platformer" preload="auto" playsinline
-                      webkit-playsinline controls></video></div>
-                  <p id="text25" class="style1">Steering behaviors</p>
-                  <p id="text27" class="style2">Work in progress</p>
-                  <p id="text34" class="style7">CODE</p>
-                  <hr id="divider03">
-                  <p id="text23" class="style1">Movement Controller</p>
-                  <p id="text24" class="style2">Work in progress</p>
-                  <p id="text36" class="style7">CODE</p>
-                </div><span></span>
-              </div>
-            </div>
-          </div>
-        </section>
       </div>
+      </section>
+      <section id="navgrid-section">
+        <h2 id="text08" class="style4">Navigation Grid</h2>
+        <div id="container12" class="style2 container columns">
+          <div class="wrapper">
+            <div class="inner">
+              <div>
+                <p id="text20" class="style1">Defining flight volumes</p>
+                <div id="gallery01" class="gallery">
+                  <div class="inner">
+                    <ul>
+                      <li>
+                        <span class="thumbnail n01">
+                          <span class="frame">
+                            <img src="assets/Navgrid/NavgridBFS.gif" alt="Breadth First Search (BFS)" />
+                          </span>
+                        </span>
+                        <div class="caption">
+                          <p>Breadth First Search (BFS)</p>
+                        </div>
+                      </li>
+                      <li>
+                        <span class="thumbnail n02">
+                          <span class="frame">
+                            <img src="assets/Navgrid/FlightVolumes.gif" alt="FlightVolumes">
+                          </span>
+                        </span>
+                        <div class="caption">
+                          <p>Flight Volumes</p>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <p id="text10" class="style2"><span class="p">The setup process is a crucial step in determining which
+                    volumes within the 3D navigation grid are traversable. It involves performing various collision
+                    checks against the terrain, static objects, and predefined blocked areas. Cells that intersect
+                    with any of these obstacles are marked as invalid.</span><span class="p">After marking intersected
+                    cells, a breadth-first search (BFS) is initiated from a cell known to be connected to the main
+                    grid. This allows us to identify and validate all connected, traversable cells. Any remaining
+                    cells that are not reachable through this search are considered disconnected from the main grid
+                    and are also marked as invalid.</span></p>
+                <p id="text11" class="style7">CODE define flight volumes</p>
+                <hr id="divider04">
+                <p id="text30" class="style1">Grid Tracing</p>
+                <div id="image10" class="style3 image" data-position="center">
+                  <div class="frame">
+                    <img src="assets/Navgrid/GridTraceSquare.gif" alt="GridTraceSquare">
+                  </div>
+                </div>
+                <p id="text65" class="style2">Work in progress</p>
+                <p id="text55" class="style7">CODE grid trace</p>
+                <hr id="divider09">
+                <p id="text56" class="style1">Navigating</p>
+                <div id="gallery02" class="gallery">
+                  <div class="inner">
+                    <ul>
+                      <li>
+                        <span class="thumbnail n01">
+                          <span class="frame">
+                            <img src="assets/Navgrid/NavgridPathfind.gif" alt="A* path" />
+                          </span>
+                        </span>
+                        <div class="caption">
+                          <p>A* path</p>
+                        </div>
+                      </li>
+                      <li>
+                        <span class="thumbnail n02">
+                          <span class="frame">
+                            <img src="assets/Navgrid/NavgridPathfindStringPulled.gif" alt="String pulled path" />
+                          </span>
+                        </span>
+                        <div class="caption">
+                          <p>String pulled path</p>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <p id="text39" class="style2"><span class="p">Pathfinding is handled using a basic A* algorithm, which
+                    calculates the sequence of volumes (or cells) that need to be traversed from point A to point B.
+                    However, since the grid is cell-based, the resulting path tends to be jagged and overly detailed,
+                    following a direct cell-to-cell transition that lacks smoothness.</span><span class="p">To both
+                    smooth the path and reduce the number of navigation points, we apply the Grid Trace algorithm.
+                    This technique effectively &quot;string-pulls&quot; the path, simplifying it into a more direct
+                    and optimized route. It&#39;s conceptually similar to the funneling algorithm commonly used in
+                    navmesh-based pathfinding.</span></p>
+                <p id="text57" class="style7">CODE navigating</p>
+                <hr id="divider10">
+                <p id="text59" class="style1">Further improvements</p>
+                <p id="text60" class="style2"><span class="p"><strong>Octree-Based Spatial Partitioning</strong><br />
+                    Replacing the uniform grid with an Octree structure allows for adaptive subdivision of space. This
+                    enables finer resolution in complex or narrow areas while keeping broader spaces lightweight,
+                    leading to more precise path generation and better handling of obstacles in 3D
+                    environments.</span><span class="p"><strong>Bezier Curve Smoothing</strong><br /> After generating
+                    the simplified path, applying Bezier curves (or other spline-based interpolation methods like
+                    Catmull-Rom or B-splines) can produce smooth, natural-looking flight paths. This is especially
+                    useful for aerial navigation, where abrupt turns are unrealistic.</span></p>
+              </div><span></span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="pathfinding-section">
+        <div id="container14" class="style2 container columns">
+          <div class="wrapper">
+            <div class="inner">
+              <div>
+                <h2 id="text06" class="style4">Navmesh Pathfinding</h2>
+                <div class="frame">
+                  <img src="assets/Navmesh/NavmeshPathfinding.gif" alt="FlockingBods" />
+                </div>
+                <p id="text13" class="style1">Funnel algorithm</p>
+                <div id="video03" class="Frame">
+                  <img src="assets/Navmesh/Pathfinding.gif" alt="Pathfinding">
+                </div>
+                <p id="text14" class="style2"><span class="p">The Funnel algorithm solves the most efficient way to
+                    move through a series of triangles.</span><span class="p">It treats the sequence of triangles as a
+                    series of portals (shared edges) and forms a &quot;funnel&quot; shape using two vectors from the
+                    current position (the apex) to the left and right sides of each portal.</span><span class="p">As
+                    long as the funnel narrows without the sides crossing, we keep extending it. When the sides cross
+                    (i.e., the funnel collapses), we set the apex to the last valid side and restart the funnel from
+                    that new position.</span><span class="p">Once all edges have been processed, we perform a final
+                    check by extending both sides to the end position, ensuring no overlap occurs before returning the
+                    shortest path.</span></p>
+                <p id="text18" class="style7">CODE Pathfind 2D</p>
+                <hr id="divider01">
+                <p id="text19" class="style1">A star</p>
+                <p id="text26" class="style2"><span class="p">The A* algorithm determines the most efficient sequence
+                    of nodes to traverse in a graph — in the case of a NavMesh, these nodes are triangles.</span><span
+                    class="p">It works by evaluating which node has the lowest total estimated cost to the goal, using
+                    a heuristic estimate function. At each step, it expands the node with the lowest cost, gradually
+                    building an optimal path from start to end.</span><span class="p">However, A* relies heavily on
+                    the accuracy of the heuristic function to find the most efficient sequence of nodes. A poor
+                    estimate can lead to longer paths or unnecessary node expansions.</span><span class="p">Another
+                    thing I did was to create a grid where each cell contained triangles overlapping the
+                    cell.</span><span class="p">By doing this I could retrieve the start and end triangle in a
+                    efficient way.</span></p>
+                <p id="text29" class="style7">CODE NavGrid get node by pos</p>
+                <hr id="divider02">
+                <p id="text58" class="style1">Hueristics</p>
+                <p id="text61" class="style2"><span class="p">A heuristic is a function used in A* to estimate the
+                    cost of traveling from a node to the goal, helping prioritize which nodes to explore.</span><span
+                    class="p">When estimating distances on a NavMesh, using the center of a triangle for the heuristic
+                    can be problematic due to the variety in triangle shapes. Triangles with irregular proportions
+                    (e.g., long, narrow ones) can cause misleading estimates and result in inefficient
+                    paths.</span><span class="p">A better approach is to base the heuristic on the nearest position
+                    along the shared edge between adjacent triangles. This method provides a more accurate distance
+                    estimate and helps ensure the pathfinding algorithm works more efficiently and reliably.</span>
+                </p>
+                <hr id="divider11">
+                <p id="text63" class="style1">Challanges &amp; learnings</p>
+                <p id="text64" class="style2"><span class="p">Debugging pathfinding algorithms can be particularly
+                    challenging. When a bug appears, the issue is often not so easy to locate. Identifying the cause
+                    requires stepping through the algorithm step by step, which can be time-consuming. The varied
+                    shapes of triangles in a NavMesh add further complexity, and after resolving issues for a path
+                    from A to B, new problems may arise when testing from C to D.</span><span class="p">It&#39;s
+                    crucial that pathfinding works reliably, as erratic AI movement is immediately noticeable and can
+                    negatively impact the player experience. Ensuring smooth and accurate navigation is key to
+                    maintaining both immersion and the credibility of AI behavior.</span></p>
+              </div><span></span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="flockingboids-section">
+        <h2 id="text21" class="style4">Flocking Boids</h2>
+        <div id="container08" class="style2 container columns">
+          <div class="wrapper">
+            <div class="inner">
+              <div>
+                <div id="video06" class="video"><video
+                    src="https://danieltestlight.carrd.co/assets/videos/video06.mp4?v=33c2b74d"
+                    poster="assets/videos/video06.mp4.jpg?v=33c2b74d" title="2D platformer" preload="auto" playsinline
+                    webkit-playsinline controls></video></div>
+                <p id="text25" class="style1">Steering behaviors</p>
+                <p id="text27" class="style2">Work in progress</p>
+                <p id="text34" class="style7">CODE</p>
+                <hr id="divider03">
+                <p id="text23" class="style1">Movement Controller</p>
+                <p id="text24" class="style2">Work in progress</p>
+                <p id="text36" class="style7">CODE</p>
+              </div><span></span>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
+  </div>
   </div>
   <script data-cfasync="false"
     src="https://danieltestlight.carrd.co/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
