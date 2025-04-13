@@ -27,8 +27,17 @@
   <link rel="stylesheet" href="dracula.css" />
 
   <script>
-    window.onload = function() {
-      hljs.highlightAll();
+    window.onload = function () {
+      document.querySelectorAll('pre code').forEach((block) => {
+        hljs.highlightElement(block);
+  
+        // Custom class name highlighting
+        const keywords = ['Vector2i', 'InfluenceManager', 'InfluenceComponent', 'InfluenceMap', 'InterestTemplate', 'InfluenceData'];
+        keywords.forEach((word) => {
+          const regex = new RegExp(`\\b(${word})\\b`, 'g');
+          block.innerHTML = block.innerHTML.replace(regex, `<span class="c">$1</span>`);
+        });
+      });
     };
   </script>
 
