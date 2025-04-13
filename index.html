@@ -18,6 +18,20 @@
   <meta property="og:url" content="https://drossen.github.io/webbsite/" />
   <meta property="twitter:card" content="summary_large_image" />
   <link rel="canonical" href="https://drossen.github.io/webbsite/" />
+
+  <!-- Highlight.js for syntax highlighting -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="scripts.js?v=1.0.31"></script>
+
+  <!-- Dracula theme for syntax highlighting -->
+  <link rel="stylesheet" href="dracula.css" />
+
+  <script>
+    window.onload = function() {
+      hljs.highlightAll();
+    };
+  </script>
+
   <style>
     /* vietnamese */
     @font-face {
@@ -4398,7 +4412,36 @@
                       &quot;InterestTemplates&quot; during setup which basically are smaller grids holding the magnitude
                       of the influence value for each cell of the specified radius and type. A small cost of memory but
                       quite a big gain to runtime performance.</span></p>
-                  <p id="text50" class="style7">CODE Init Templates</p>
+                  <pre><code class="language-cpp">
+                    class Vector2i;
+                    class InfluenceManager;
+                    class InfluenceComponent;
+                    class InfluenceMap;
+                    struct InterestTemplate;
+                    struct InfluenceData;
+
+                    void InfluenceManager::RepaintUserfluence(InfluenceComponent &user)
+                    {
+                      Vector2i previousCoordinate = user.location;
+                      Vector2i currentCoordinate = GetCoordinate(user.myPosition);
+                      if (currentCoordinate == previousCoordinate) return;
+                  
+                      std::unordered_map<InfluenceType, InfluenceMap*> &container = myInfluenceMaps[user.myTeam];
+                      
+                      for (InfluenceData &imprint : user.myImprints)
+                      {
+                        // Get the template (brush) for how we spread values.
+                        InterestTemplate &interestTemplate = GetInterestTemplate(imprint);
+                        InfluenceMap &targetPaintMap = *container[imprint.type];
+                  
+                        // Remove from the previous and paint on new location
+                        targetPaintMap.SpreadInfluence(previousCoordinate, interestTemplate, -imprint.maxValue);
+                        targetPaintMap.SpreadInfluence(currentCoordinate, interestTemplate, imprint.maxValue);
+                      }
+                  
+                      user.location = currentCoordinate;
+                    }
+                  </code></pre>
                   <hr id="divider08">
                   <p id="text51" class="style1">Examples of usage</p>
                   <p id="text52" class="style2"><span class="p">The dynamic setup of the system allows both dumb and
