@@ -4581,7 +4581,71 @@ void <span class="c">InfluenceManager</span>::RepaintUserfluence(<span class="c"
                       this, we can perform a grid trace from each apex point in the path, effectively “string-pulling”
                       the A* result. This process simplifies the route, reducing the number of waypoints and producing a
                       more optimized, direct path through the grid.</span></p>
-                  <p id="text55" class="style7">CODE grid trace</p>
+                      <pre><code class="language-cpp">
+bool grid_trace(<span class="c">NavigationGrid</span> &navgrid, const <span class="c">V3</span> &from_world_pos, const <span class="c">V3</span> &to_world_pos, const int max_steps) {
+    <span class="c">v3i</span> from_grid, to_grid;
+    world_pos_to_grid_array_idx(navgrid, from_world_pos, from_grid);
+    world_pos_to_grid_array_idx(navgrid, to_world_pos, to_grid);
+
+    int target_index = CELL_INDEX2(to_grid.x, to_grid.y, to_grid.z);
+
+    // Step direction: +1 or -1 depending on the direction of movement in each axis
+    int stepX = (to_grid.x > from_grid.x) ? 1 : -1;
+    int stepY = (to_grid.y > from_grid.y) ? 1 : -1;
+    int stepZ = (to_grid.z > from_grid.z) ? 1 : -1;
+
+    // How far we need to travel along the ray to cross a voxel boundary on each axis
+    float deltaX = std::fabs(1.0f / (to_world_pos.x - from_world_pos.x));
+    float deltaY = std::fabs(1.0f / (to_world_pos.y - from_world_pos.y));
+    float deltaZ = std::fabs(1.0f / (to_world_pos.z - from_world_pos.z));
+
+    // Position within the current voxel (range: 0.0 to 1.0)
+    float startX = (from_world_pos.x / navgrid.cell_size.x) - std::floor(from_world_pos.x / navgrid.cell_size.x);
+    float startY = (from_world_pos.y / navgrid.cell_size.y) - std::floor(from_world_pos.y / navgrid.cell_size.y);
+    float startZ = (from_world_pos.z / navgrid.cell_size.z) - std::floor(from_world_pos.z / navgrid.cell_size.z);
+
+    // Distance to the first voxel boundary on each axis
+    // After this, we’ll increment by deltaX/Y/Z per step
+    float tMaxX = (stepX > 0) ? (1.0f - startX) * deltaX : startX * deltaX;
+    float tMaxY = (stepY > 0) ? (1.0f - startY) * deltaY : startY * deltaY;
+    float tMaxZ = (stepZ > 0) ? (1.0f - startZ) * deltaZ : startZ * deltaZ;
+
+    <span class="c">v3i</span> current_coord = from_grid;
+
+    int steps = 0;
+    while (steps < max_steps) {
+        int current_index = CELL_INDEX2(current_coord.x, current_coord.y, current_coord.z);
+
+        if (is_out_of_bounds(navgrid, current_coord)) return false;
+        if (navgrid.nodes[current_index].is_obstructed) return false;
+        if (current_index == target_index) return true;
+
+        // Move to the next voxel along the axis with the smallest tMax
+        if (tMaxX < tMaxY) {
+            if (tMaxX < tMaxZ) {
+                current_coord.x += stepX;
+                tMaxX += deltaX;
+            } else {
+                current_coord.z += stepZ;
+                tMaxZ += deltaZ;
+            }
+        } else {
+            if (tMaxY < tMaxZ) {
+                current_coord.y += stepY;
+                tMaxY += deltaY;
+            } else {
+                current_coord.z += stepZ;
+                tMaxZ += deltaZ;
+            }
+        }
+
+        steps++;
+    }
+
+    // If we reach here, we exceeded the max steps before reaching our target
+    return false;
+}
+                        </code></pre>
                   <p id="text56" class="style1">Navigating</p>
                   <div id="gallery02" class="gallery">
                     <div class="inner">
