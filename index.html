@@ -4453,14 +4453,14 @@ void <span class="c">InfluenceMap</span>::FloodFillInfluence(const <span class="
                       type, from which Team and of what Magnitude.</span><span class="p">This way we can collect
                       different types of influences and combine them using various math operations.</span></p>
                       <pre><code class="language-cpp">
-<span class="c">Workmap</span>* workmap = influenceManager-&gt;GetWorkmap(scanOrigin, scanRadius);
-workmap-&gt;Add(Team::Player, InfluenceType::Proximity, 1.0);
-workmap-&gt;ExcludeUserInfluence(user, InfluenceType::Proximity);
-workmap-&gt;Invert();
-workmap-&gt;Add(Team::Enemy, InfluenceType::Proximity, 2.0);
+<span class="c">Workmap</span>* workmap = influenceManager->GetWorkmap(scanOrigin, scanRadius);
+workmap->Add(Team::Player, InfluenceType::Proximity, 1.0);
+workmap->ExcludeUserInfluence(user, InfluenceType::Proximity);
+workmap->Invert();
+workmap->Add(Team::Enemy, InfluenceType::Proximity, 2.0);
 
 <span class="c">Vector3f</span> result;
-if (workmap-&gt;GetPositionByHighestValue(result)) {
+if (workmap->GetPositionByHighestValue(result)) {
     highestThreatPosition = result;
 }
                         </code></pre>
