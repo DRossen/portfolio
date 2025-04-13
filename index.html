@@ -32,7 +32,16 @@
         hljs.highlightElement(block);
   
         // Custom class name highlighting
-        const keywords = ['Vector2i', 'InfluenceManager', 'InfluenceComponent', 'InfluenceMap', 'InterestTemplate', 'InfluenceData'];
+        const keywords = [
+          'Vector3f', 
+          'Vector2i', 
+          'InfluenceManager', 
+          'InfluenceComponent', 
+          'InfluenceMap', 
+          'InterestTemplate', 
+          'InfluenceData', 
+          'Workmap'];
+          
         keywords.forEach((word) => {
           const regex = new RegExp(`\\b(${word})\\b`, 'g');
           block.innerHTML = block.innerHTML.replace(regex, `<span class="c">$1</span>`);
