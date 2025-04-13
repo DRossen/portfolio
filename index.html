@@ -254,7 +254,6 @@
     address,
     big,
     cite,
-    code,
     del,
     dfn,
     em,
@@ -446,18 +445,6 @@
 
     em {
       font-style: italic;
-    }
-
-    code {
-      background-color: rgba(144, 144, 144, 0.25);
-      border-radius: 0.25em;
-      font-family: 'Lucida Console', 'Courier New', monospace;
-      font-size: 0.9em;
-      font-weight: normal;
-      letter-spacing: 0;
-      margin: 0 0.25em;
-      padding: 0.25em 0.5em;
-      text-indent: 0;
     }
 
     mark {
@@ -4413,34 +4400,27 @@
                       of the influence value for each cell of the specified radius and type. A small cost of memory but
                       quite a big gain to runtime performance.</span></p>
                   <pre><code class="language-cpp">
-                    class Vector2i;
-                    class InfluenceManager;
-                    class InfluenceComponent;
-                    class InfluenceMap;
-                    struct InterestTemplate;
-                    struct InfluenceData;
+void <span class="c">InfluenceManager</span>::RepaintUserfluence(<span class="c">InfluenceComponent</span> &user)
+{
+  <span class="c">Vector2i</span> previousCoordinate = user.location;
+  <span class="c">Vector2i</span> currentCoordinate = GetCoordinate(user.myPosition);
+  if (currentCoordinate == previousCoordinate) return;
 
-                    void InfluenceManager::RepaintUserfluence(InfluenceComponent &user)
-                    {
-                      Vector2i previousCoordinate = user.location;
-                      Vector2i currentCoordinate = GetCoordinate(user.myPosition);
-                      if (currentCoordinate == previousCoordinate) return;
-                  
-                      std::unordered_map<InfluenceType, InfluenceMap*> &container = myInfluenceMaps[user.myTeam];
-                      
-                      for (InfluenceData &imprint : user.myImprints)
-                      {
-                        // Get the template (brush) for how we spread values.
-                        InterestTemplate &interestTemplate = GetInterestTemplate(imprint);
-                        InfluenceMap &targetPaintMap = *container[imprint.type];
-                  
-                        // Remove from the previous and paint on new location
-                        targetPaintMap.SpreadInfluence(previousCoordinate, interestTemplate, -imprint.maxValue);
-                        targetPaintMap.SpreadInfluence(currentCoordinate, interestTemplate, imprint.maxValue);
-                      }
-                  
-                      user.location = currentCoordinate;
-                    }
+  std::unordered_map&lt;<span class="c">InfluenceType</span>, <span class="c">InfluenceMap</span>*&gt; &container = myInfluenceMaps[user.myTeam];
+
+  for (<span class="c">InfluenceData</span> &imprint : user.myImprints)
+  {
+    // Get the template (brush) for how we spread values.
+    <span class="c">InterestTemplate</span> &interestTemplate = GetInterestTemplate(imprint);
+    <span class="c">InfluenceMap</span> &targetPaintMap = *container[imprint.type];
+    
+    // Remove from the previous and paint on new location
+    targetPaintMap.SpreadInfluence(previousCoordinate, interestTemplate, -imprint.maxValue);
+    targetPaintMap.SpreadInfluence(currentCoordinate, interestTemplate, imprint.maxValue);
+  }
+
+  user.location = currentCoordinate;
+}
                   </code></pre>
                   <hr id="divider08">
                   <p id="text51" class="style1">Examples of usage</p>
