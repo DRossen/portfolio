@@ -82,3 +82,8 @@
 .hljs-emphasis {
   font-style: italic;
 }
+
+.c {
+  color: #50fa7b; /* or whatever color you want */
+  font-weight: bold;
+}
