@@ -35,8 +35,10 @@
         const keywords = [
           'Vector3f', 
           'Vector2i', 
+          'V3', 
           'InfluenceManager', 
           'InfluenceComponent', 
+          'NavigationGrid',
           'InfluenceMap', 
           'InterestTemplate', 
           'InfluenceData', 
@@ -4675,7 +4677,40 @@ bool grid_trace(<span class="c">NavigationGrid</span> &navgrid, const <span clas
                       This technique effectively &quot;string-pulls&quot; the path, simplifying it into a more direct
                       and optimized route. It&#39;s conceptually similar to the funneling algorithm commonly used in
                       navmesh-based pathfinding.</span></p>
-                  <p id="text57" class="style7">CODE navigating</p>
+                      <pre><code class="language-cpp">
+bool string_pull_path(<span class="c">NavigationGrid</span> &navgrid, const <span class="c">V3</span> &start, <span class="c">Path</span> &astar_path, OUT <span class="c">Path</span> &out_smooth_path) {
+
+    if (astar_path.size() < 2) { return false; }
+
+    out_smooth_path.clear();
+    out_smooth_path.emplace_back(astar_path.front());
+
+    <span class="c">V3</span> apex = astar_path.front();
+    int path_index = 1;
+    int last_valid_index = 0; 
+
+    while (path_index < astar_path.size()) {
+
+        <span class="c">V3</span> to = astar_path[path_index];
+
+        if (grid_trace(navgrid, apex, to)) {
+            last_valid_index = path_index;
+            path_index++;
+        } else {
+            apex = astar_path[last_valid_index]; 
+            out_smooth_path.emplace_back(apex);
+        }
+
+        if (path_index >= astar_path.size()) {
+
+            if (!grid_trace(navgrid, start, astar_path.front())) {
+                out_smooth_path.emplace_back(astar_path[last_valid_index]);
+            }
+        }
+    }
+    return true;
+}
+                        </code></pre>
                   <p id="text59" class="style1">Further improvements</p>
                   <p id="text60" class="style2"><span class="p"><strong>Octree-Based Spatial Partitioning</strong><br />
                       Replacing the uniform grid with an Octree structure allows for adaptive subdivision of space. This
