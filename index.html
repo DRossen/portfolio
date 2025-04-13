@@ -4382,7 +4382,55 @@
                       cell&#39;s center position against the Navmesh and mark cells outside of it as invalid. Also when
                       both retrieving and applying influence we use a flood fill algorithm (BFS) to adapt it to the
                       level geometry.</span></p>
-                  <p id="text44" class="style7">CODE Flood fill influence</p>
+                      <pre><code class="language-cpp">
+void <span class="c">InfluenceMap</span>::SpreadInfluence(const <span class="c">Vector2i</span>& aOriginCoord, const <span class="c">InterestTemplate</span>& aInterestTemplate, float aMagnitude)
+{
+    int radius = aInterestTemplate.dimensions / 2;
+
+    std::set&lt;int&gt; visited;
+    std::queue&lt;<span class="c">std::tuple</span>&lt;<span class="c">Vector2i</span>, <span class="c">Vector2i</span>&gt;&gt; bfsQueue;
+    bfsQueue.push({ aOriginCoord, aInterestTemplate.centerCell });
+
+    int worldStartIndex = aOriginCoord.y * myGridSize.x + aOriginCoord.x;
+    int localStartIndex = aInterestTemplate.centerCell.y * aInterestTemplate.dimensions + aInterestTemplate.centerCell.x;
+    <span class="c">Vector2i</span> boundsMin = { std::max(myBoundsMin.x, aOriginCoord.x - radius), std::max(myBoundsMin.y, aOriginCoord.y - radius) };
+    <span class="c">Vector2i</span> boundsMax = { std::min(myBoundsMax.x, aOriginCoord.x + radius), std::min(myBoundsMax.y, aOriginCoord.y + radius) };
+
+    bool within_bounds = worldStartIndex >= 0 && worldStartIndex < myValues.size();
+    if (within_bounds) {
+        myValues[worldStartIndex] += aInterestTemplate.values[localStartIndex] * aMagnitude;
+        visited.insert(worldStartIndex);
+    }
+
+    while (!bfsQueue.empty()) {
+        <span class="c">Vector2i</span> nextLocalCoord, nextTemplateCoord;
+        <span class="c">Vector2i</span> localCoord, templateCoord;
+
+        std::tie(localCoord, templateCoord) = bfsQueue.front();
+        bfsQueue.pop();
+
+        for (const <span class="c">Vector2i</span>& direction : directions) {
+
+            nextLocalCoord = localCoord + direction;
+            nextTemplateCoord = templateCoord + direction;
+
+            if (nextLocalCoord.x < boundsMin.x || nextLocalCoord.x > boundsMax.x ||
+                nextLocalCoord.y < boundsMin.y || nextLocalCoord.y > boundsMax.y) {
+                continue;
+            }
+
+            int influenceMapIndex = nextLocalCoord.y * myGridSize.x + nextLocalCoord.x;
+            int templateIndex = nextTemplateCoord.y * aInterestTemplate.dimensions + nextTemplateCoord.x;
+
+            if (!myValidCells->at(influenceMapIndex) || visited.find(influenceMapIndex) != visited.end()) continue;
+
+            myValues[influenceMapIndex] += aInterestTemplate.values[templateIndex] * aMagnitude;
+            bfsQueue.push({ nextLocalCoord, nextTemplateCoord });
+            visited.insert(influenceMapIndex);
+        }
+    }
+}
+                        </code></pre>                        
                   <p id="text45" class="style1">Retrieving information</p>
                   <div id="image09" class="style3 image" data-position="center"><a
                       class="frame"><img
@@ -4393,7 +4441,18 @@
                       of the workmap then allows us to fill it with data from the influence maps by specifying Influence
                       type, from which Team and of what Magnitude.</span><span class="p">This way we can collect
                       different types of influences and combine them using various math operations.</span></p>
-                  <p id="text47" class="style7">CODE Workmap</p>
+                      <pre><code class="language-cpp">
+<span class="c">Workmap</span>* workmap = influenceManager->GetWorkmap(scanOrigin, scanRadius);
+workmap->Add(Team::Player, InfluenceType::Proximity, 1.0);
+workmap->ExcludeUserInfluence(user, InfluenceType::Proximity);
+workmap->Invert();
+workmap->Add(Team::Enemy, InfluenceType::Proximity, 2.0);
+
+<span class="c">Vector3f</span> result;
+if (workmap->GetPositionByHighestValue(result)) {
+    highestThreatPosition = result;
+}
+                        </code></pre>
                   <hr id="divider07">
                   <p id="text48" class="style1">Initialization process</p>
                   <p id="text49" class="style2"><span class="p">Units register them self into the system, specifying
