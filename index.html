@@ -4383,54 +4383,65 @@
                       both retrieving and applying influence we use a flood fill algorithm (BFS) to adapt it to the
                       level geometry.</span></p>
                       <pre><code class="language-cpp">
-void <span class="c">InfluenceMap</span>::SpreadInfluence(const <span class="c">Vector2i</span>& aOriginCoord, const <span class="c">InterestTemplate</span>& aInterestTemplate, float aMagnitude)
+void <span class="c">InfluenceMap</span>::FloodFillInfluence(const <span class="c">Vector2i</span>&amp; aOriginCoord, const <span class="c">InfluenceData</span>&amp; aInfluenceData, float aAmount)
 {
-    int radius = aInterestTemplate.dimensions / 2;
+    <span class="c">InterestTemplate</span>&amp; interestTemplate = myManager-&gt;GetInterestTemplate(aInfluenceData);
+    <span class="c">FalloffFunction</span> curve = GetFalloffFunction(aInfluenceData.type);
+
+    int radius = interestTemplate.dimensions / 2;
+    int maxIterations = radius + 1;
+    int distance = 1;
 
     std::set&lt;int&gt; visited;
-    std::queue&lt;<span class="c">std::tuple</span>&lt;<span class="c">Vector2i</span>, <span class="c">Vector2i</span>&gt;&gt; bfsQueue;
-    bfsQueue.push({ aOriginCoord, aInterestTemplate.centerCell });
+    std::queue&lt;std::tuple&lt;<span class="c">Vector2i</span>, <span class="c">Vector2i</span>, int&gt;&gt; bfsQueue;
 
-    int worldStartIndex = aOriginCoord.y * myGridSize.x + aOriginCoord.x;
-    int localStartIndex = aInterestTemplate.centerCell.y * aInterestTemplate.dimensions + aInterestTemplate.centerCell.x;
     <span class="c">Vector2i</span> boundsMin = { std::max(myBoundsMin.x, aOriginCoord.x - radius), std::max(myBoundsMin.y, aOriginCoord.y - radius) };
     <span class="c">Vector2i</span> boundsMax = { std::min(myBoundsMax.x, aOriginCoord.x + radius), std::min(myBoundsMax.y, aOriginCoord.y + radius) };
 
-    bool within_bounds = worldStartIndex >= 0 && worldStartIndex < myValues.size();
-    if (within_bounds) {
-        myValues[worldStartIndex] += aInterestTemplate.values[localStartIndex] * aMagnitude;
+    bfsQueue.push({ aOriginCoord, interestTemplate.centerCell, distance });
+
+    int worldStartIndex = aOriginCoord.y * myGridSize.x + aOriginCoord.x;
+    int localStartIndex = interestTemplate.centerCell.y * interestTemplate.dimensions + interestTemplate.centerCell.x;
+
+    if (worldStartIndex &gt;= 0 &amp;&amp; worldStartIndex &lt; myValues.size()) {
+        myValues[worldStartIndex] += interestTemplate.values[localStartIndex] * aAmount;
         visited.insert(worldStartIndex);
     }
+
+    float bfsFallof = 1.0f;
 
     while (!bfsQueue.empty()) {
         <span class="c">Vector2i</span> nextLocalCoord, nextTemplateCoord;
         <span class="c">Vector2i</span> localCoord, templateCoord;
 
-        std::tie(localCoord, templateCoord) = bfsQueue.front();
+        std::tie(localCoord, templateCoord, distance) = bfsQueue.front();
         bfsQueue.pop();
 
-        for (const <span class="c">Vector2i</span>& direction : directions) {
+        float fallof = curve(static_cast&lt;float&gt;(distance), static_cast&lt;float&gt;(maxIterations));
 
+        for (const auto&amp; direction : directions) {
             nextLocalCoord = localCoord + direction;
             nextTemplateCoord = templateCoord + direction;
 
-            if (nextLocalCoord.x < boundsMin.x || nextLocalCoord.x > boundsMax.x ||
-                nextLocalCoord.y < boundsMin.y || nextLocalCoord.y > boundsMax.y) {
+            if (nextLocalCoord.x &lt; boundsMin.x || nextLocalCoord.x &gt; boundsMax.x ||
+                nextLocalCoord.y &lt; boundsMin.y || nextLocalCoord.y &gt; boundsMax.y) {
                 continue;
             }
 
-            int influenceMapIndex = nextLocalCoord.y * myGridSize.x + nextLocalCoord.x;
-            int templateIndex = nextTemplateCoord.y * aInterestTemplate.dimensions + nextTemplateCoord.x;
+            int heatmapIndex = nextLocalCoord.y * myGridSize.x + nextLocalCoord.x;
+            int templateIndex = nextTemplateCoord.y * interestTemplate.dimensions + nextTemplateCoord.x;
 
-            if (!myValidCells->at(influenceMapIndex) || visited.find(influenceMapIndex) != visited.end()) continue;
+            if (!myValidCells-&gt;at(heatmapIndex)) continue;
 
-            myValues[influenceMapIndex] += aInterestTemplate.values[templateIndex] * aMagnitude;
-            bfsQueue.push({ nextLocalCoord, nextTemplateCoord });
-            visited.insert(influenceMapIndex);
+            if (visited.find(heatmapIndex) == visited.end()) {
+                myValues[heatmapIndex] += (interestTemplate.values[templateIndex] * fallof) * aAmount;
+                bfsQueue.push({ nextLocalCoord, nextTemplateCoord, distance + 1 });
+                visited.insert(heatmapIndex);
+            }
         }
     }
 }
-                        </code></pre>                        
+                      </code></pre>                                              
                   <p id="text45" class="style1">Retrieving information</p>
                   <div id="image09" class="style3 image" data-position="center"><a
                       class="frame"><img
@@ -4442,14 +4453,14 @@ void <span class="c">InfluenceMap</span>::SpreadInfluence(const <span class="c">
                       type, from which Team and of what Magnitude.</span><span class="p">This way we can collect
                       different types of influences and combine them using various math operations.</span></p>
                       <pre><code class="language-cpp">
-<span class="c">Workmap</span>* workmap = influenceManager->GetWorkmap(scanOrigin, scanRadius);
-workmap->Add(Team::Player, InfluenceType::Proximity, 1.0);
-workmap->ExcludeUserInfluence(user, InfluenceType::Proximity);
-workmap->Invert();
-workmap->Add(Team::Enemy, InfluenceType::Proximity, 2.0);
+<span class="c">Workmap</span>* workmap = influenceManager-&gt;GetWorkmap(scanOrigin, scanRadius);
+workmap-&gt;Add(Team::Player, InfluenceType::Proximity, 1.0);
+workmap-&gt;ExcludeUserInfluence(user, InfluenceType::Proximity);
+workmap-&gt;Invert();
+workmap-&gt;Add(Team::Enemy, InfluenceType::Proximity, 2.0);
 
 <span class="c">Vector3f</span> result;
-if (workmap->GetPositionByHighestValue(result)) {
+if (workmap-&gt;GetPositionByHighestValue(result)) {
     highestThreatPosition = result;
 }
                         </code></pre>
