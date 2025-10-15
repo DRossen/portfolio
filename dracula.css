@@ -11,13 +11,15 @@
  */
 
 .hljs {
-  border: 1px solid #444;
-  border-radius: 6px;
-  font-size: 0.60rem;
-  display: block;
-  overflow-x: auto;
-  padding: 0.5em;
-  background: #282a36;
+    border: 1px solid #444;
+    border-radius: 6px;
+    font-size: 0.55rem; /* slightly smaller text */
+    line-height: 1.4; /* improves spacing */
+    display: block;
+    overflow-x: auto;
+    padding: 0.75em 1em; /* a bit more padding for balance */
+    background: #282a36;
+    font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
 }
 
 .hljs-built_in,
